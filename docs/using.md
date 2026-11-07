@@ -2,7 +2,7 @@
 
 An app needs the C# side and two files beside `default.xex`:
 
-- **`Https360.dll`**, the C# side, `HttpsClient` and the drop-in, with `Https360.xml` beside it for IntelliSense: a reference to the release's DLL, or a `ProjectReference` to `csharp/Https360.csproj`. Or compile `csharp/HttpsClient.cs` and `csharp/HttpsWebRequest.cs` into the app itself.
+- **`Silverlight360.Https.dll`**, the C# side, `HttpsClient` and the drop-in, with `Silverlight360.Https.xml` beside it for IntelliSense: a reference to the release's DLL, or a `ProjectReference` to the repository's `csharp/Silverlight360.Https.csproj`.
 - **`https360.xex`** and **`cacert.pem`**, as `Content`.
 
 The C# side uses `NativeBuffer` from Silverlight360's [common library](https://digiex.github.io/Silverlight360/common-library/), Silverlight360.Common, for the memory the DLL reads and writes. An app built with Silverlight360 references that library already, and its build puts `Silverlight360.Common.dll` in the package.
@@ -11,20 +11,20 @@ In the app's project, as `sample/HttpsSample.csproj` has them:
 
 ```xml
 <ItemGroup>
-  <ProjectReference Include="..\Https360\csharp\Https360.csproj" />
-  <!-- or, from a release: <Reference Include="Https360"><HintPath>..\Https360\Https360.dll</HintPath></Reference> -->
+  <ProjectReference Include="..\Silverlight360.Https\csharp\Silverlight360.Https.csproj" />
+  <!-- or, from a release: <Reference Include="Silverlight360.Https"><HintPath>..\Silverlight360.Https\Silverlight360.Https.dll</HintPath></Reference> -->
 </ItemGroup>
 <ItemGroup>
-  <Content Include="..\Https360\https360.xex"><Link>https360.xex</Link></Content>
-  <Content Include="..\Https360\cacert.pem"><Link>cacert.pem</Link></Content>
+  <Content Include="..\Silverlight360.Https\https360.xex"><Link>https360.xex</Link></Content>
+  <Content Include="..\Silverlight360.Https\cacert.pem"><Link>cacert.pem</Link></Content>
 </ItemGroup>
 ```
 
-Ship the release's `licenses` folder and `THIRD-PARTY-NOTICES.md` with them too: curl's and Mbed TLS's licenses ask for their notices to go with the binary. Https360's own license asks for a visible reference to <https://github.com/Digiex/Https360> in the app's documentation, credits or "about" information (see [Licenses](licenses.md)).
+Ship the release's `licenses` folder and `THIRD-PARTY-NOTICES.md` with them too: curl's and Mbed TLS's licenses ask for their notices to go with the binary. Silverlight360.Https's own license asks for a visible reference to <https://github.com/Digiex/Silverlight360.Https> in the app's documentation, credits or "about" information (see [Licenses](licenses.md)).
 
 ## The drop-in
 
-To leave an app's `WebClient` and `HttpWebRequest` code as it is, register the drop-in (in `Https360.dll`, or `csharp/HttpsWebRequest.cs`) once, at the start:
+To leave an app's `WebClient` and `HttpWebRequest` code as it is, register the drop-in, in `Silverlight360.Https.dll`, once, at the start:
 
 ```csharp
 HttpsRequestCreator.Register();
@@ -33,7 +33,7 @@ web.DownloadStringCompleted += (s, e) => Show(e.Error == null ? e.Result : e.Err
 web.DownloadStringAsync(new Uri("https://example.com/"));
 ```
 
-From then on every `https://` request the app makes through the platform goes through Https360, with TLS 1.3 and Mozilla's roots; `Register(true)` takes `http://` too. On a console the platform's own stack fails for `example.com` and `github.com`, and Https360's doesn't. See [API](api.md#the-drop-in-httpswebrequest).
+From then on every `https://` request the app makes through the platform goes through Silverlight360.Https, with TLS 1.3 and Mozilla's roots; `Register(true)` takes `http://` too. On a console the platform's own stack fails for `example.com` and `github.com`, and Silverlight360.Https's doesn't. See [API](api.md#the-drop-in-httpswebrequest).
 
 ## What each one has
 

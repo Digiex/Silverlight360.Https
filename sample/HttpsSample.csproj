@@ -32,8 +32,8 @@
     <Compile Include="MainPage.xaml.cs"><DependentUpon>MainPage.xaml</DependentUpon></Compile>
   </ItemGroup>
   <ItemGroup>
-    <!-- Https360.dll; the SDK's targets add Silverlight360.Common, for DebugLog and NativeBuffer. -->
-    <ProjectReference Include="..\csharp\Https360.csproj" />
+    <!-- Silverlight360.Https.dll; the SDK's targets add Silverlight360.Common, for DebugLog and NativeBuffer. -->
+    <ProjectReference Include="..\csharp\Silverlight360.Https.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!-- Built by the Makefile in WSL; the package puts them beside default.xex. cacert.pem is Mozilla's roots, for

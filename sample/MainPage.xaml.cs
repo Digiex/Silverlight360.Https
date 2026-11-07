@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Https360;
+using Silverlight360.Https;
 using Silverlight360;
 
 namespace HttpsSample
@@ -59,7 +59,7 @@ namespace HttpsSample
             try
             {
                 HttpsClient.Start(HttpsClient.DefaultHeapBytes);
-                Report("Https360: version 0x" + HttpsClient.Version.ToString("X8"));
+                Report("Silverlight360.Https: version 0x" + HttpsClient.Version.ToString("X8"));
             }
             catch (Exception e)
             {
@@ -85,7 +85,7 @@ namespace HttpsSample
                 RunPublic(roots);
             }
             active = null;
-            Report("Https360: checks: " + passed + " passed, " + failed + " failed, heap peak " +
+            Report("Silverlight360.Https: checks: " + passed + " passed, " + failed + " failed, heap peak " +
                 (HttpsClient.HeapPeak >> 10) + " KB");
         }
 
@@ -267,7 +267,7 @@ namespace HttpsSample
             Check("public: github.com's API", delegate
             {
                 HttpsResponse response = client.Send("GET", "https://api.github.com/zen",
-                    new[] { "User-Agent: Https360" }, null);
+                    new[] { "User-Agent: Silverlight360.Https" }, null);
                 return Expect(response.Status == 200 && response.Body.Length > 0, response, response.Text);
             });
             Check("public: TLS 1.2 only (tls-v1-2.badssl.com)", delegate
@@ -300,7 +300,7 @@ namespace HttpsSample
         // A check's outcome: null when it passed, else what went wrong.
         private void Check(string name, Run run)
         {
-            DebugLog.WriteLine("Https360: " + name + "...");
+            DebugLog.WriteLine("Silverlight360.Https: " + name + "...");
             int start = Environment.TickCount;
             string outcome;
             try

@@ -4,7 +4,7 @@
              Width="1280" Height="720">
   <Grid Background="#FF101820">
     <StackPanel Margin="96,64,96,48">
-      <TextBlock Text="Https360" FontSize="48" Foreground="White" />
+      <TextBlock Text="Silverlight360.Https" FontSize="48" Foreground="White" />
       <TextBlock Text="HTTPS from C# through https360.xex: libcurl on Mbed TLS, TLS 1.2 and 1.3" FontSize="22" Foreground="#FF9FC5E8" />
       <TextBlock x:Name="ProgressText" FontSize="20" Foreground="#FF9FC5E8" Margin="0,24,0,0" />
       <TextBlock x:Name="ResultsText" FontSize="16" Foreground="White" Margin="0,16,0,0" TextWrapping="Wrap" />

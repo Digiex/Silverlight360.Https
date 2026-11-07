@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Silverlight360;
 
-namespace Https360
+namespace Silverlight360.Https
 {
     /// <summary>
     /// HTTP and HTTPS requests from the console with https360.xex, libcurl

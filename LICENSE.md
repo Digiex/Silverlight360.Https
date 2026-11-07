@@ -1,7 +1,7 @@
-Https360 is licensed under the PolyForm Noncommercial License 1.0.0,
+Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0,
 reproduced below, together with the Additional Condition after it.
 
-Required Notice: Copyright 2026 Digiex (https://github.com/Digiex/Https360)
+Required Notice: Copyright 2026 Digiex (https://github.com/Digiex/Silverlight360.Https)
 
 ---
 
@@ -85,7 +85,7 @@ The **licensor** is the individual or entity offering these terms, and the **sof
 
 In addition to the terms above, the licensor grants the licenses above only
 on this condition: any project made with the software must include a visible
-reference to https://github.com/Digiex/Https360 in its documentation, credits
+reference to https://github.com/Digiex/Silverlight360.Https in its documentation, credits
 or "about" information. A project made with the software includes an app
 shipped with https360.xex or HttpsClient.cs, and any work based on its code
 or documentation.

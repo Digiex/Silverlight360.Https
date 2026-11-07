@@ -1,6 +1,6 @@
 # Contributing
 
-Bug reports, fixes and improvements are welcome on [GitHub](https://github.com/Digiex/Https360).
+Bug reports, fixes and improvements are welcome on [GitHub](https://github.com/Digiex/Silverlight360.Https).
 
 1. Say what you're changing in an issue first if it's more than a small fix, so the work isn't done twice.
 2. Clone with `--recursive`, run `.\tools\Configure.ps1`, build it ([Building](building.md)) and run the sample's checks in xenia-edge ([Testing](testing.md)). A change to the DLL's loading, its memory or its network should be tried on a console too, with the DLL probed first.
@@ -11,4 +11,4 @@ Don't send code or files from the Xbox 360 SDK, or from projects whose licenses 
 
 ## License
 
-Https360 is licensed under the [PolyForm Noncommercial License 1.0.0](https://github.com/Digiex/Https360/blob/master/LICENSE.md) with an additional condition. By opening a pull request, you agree that your contribution is licensed under the same terms.
+Silverlight360.Https is licensed under the [PolyForm Noncommercial License 1.0.0](https://github.com/Digiex/Silverlight360.Https/blob/master/LICENSE.md) with an additional condition. By opening a pull request, you agree that your contribution is licensed under the same terms.

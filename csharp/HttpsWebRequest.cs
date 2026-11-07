@@ -4,10 +4,10 @@ using System.IO;
 using System.Net;
 using System.Threading;
 
-namespace Https360
+namespace Silverlight360.Https
 {
     /// <summary>
-    /// Sends the platform's own web requests through Https360: once Register
+    /// Sends the platform's own web requests through Silverlight360.Https: once Register
     /// has run, WebRequest.Create and WebClient make an HttpsWebRequest for
     /// https:// (and http:// if asked), so code written for HttpWebRequest
     /// gets TLS 1.3 and Mozilla's roots without changing.
@@ -26,13 +26,13 @@ namespace Https360
         {
         }
 
-        /// <summary>Sends https:// requests through Https360; false if the prefix couldn't be registered.</summary>
+        /// <summary>Sends https:// requests through Silverlight360.Https; false if the prefix couldn't be registered.</summary>
         public static bool Register()
         {
             return Register(false);
         }
 
-        /// <summary>Sends https://, and with http also http://, requests through Https360.</summary>
+        /// <summary>Sends https://, and with http also http://, requests through Silverlight360.Https.</summary>
         public static bool Register(bool http)
         {
             bool registered = WebRequest.RegisterPrefix("https://", Instance);
@@ -61,7 +61,7 @@ namespace Https360
     public class HttpsWebRequest : HttpWebRequest
     {
         /// <summary>Sent when a request gives no User-Agent: some servers, GitHub's API among them, turn away none.</summary>
-        public static string DefaultUserAgent = "Https360";
+        public static string DefaultUserAgent = "Silverlight360.Https";
 
         // Clients kept between requests, so their connections stay open.
         private const int PooledClients = 4;

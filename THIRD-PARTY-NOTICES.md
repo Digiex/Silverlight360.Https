@@ -1,6 +1,6 @@
 # Third-party notices
 
-`https360.xex` is built from the two libraries below, and `cacert.pem` is Mozilla's root certificates. They keep their own licenses, not Https360's (`LICENSE.md`). An app that ships `https360.xex` or `cacert.pem` ships these notices with them: a release has them in its `licenses` folder.
+`https360.xex` is built from the two libraries below, and `cacert.pem` is Mozilla's root certificates. They keep their own licenses, not Silverlight360.Https's (`LICENSE.md`). An app that ships `https360.xex` or `cacert.pem` ships these notices with them: a release has them in its `licenses` folder.
 
 ## libcurl
 
@@ -14,7 +14,7 @@ Copyright (c) 1996 - 2026, Daniel Stenberg, <daniel@haxx.se>, and many contribut
 
 Mbed TLS 3.6.7, from [mbedtls-xenon](https://github.com/xenosworks/mbedtls-xenon), xsdk's port of [Mbed TLS](https://www.trustedfirmware.org/projects/mbed-tls/), built with `config/mbedtls.h`.
 
-Mbed TLS is offered under the Apache License 2.0 or the GNU GPL 2.0 or later; Https360 uses it under the Apache License 2.0. Both are in `licenses/mbedtls.txt`.
+Mbed TLS is offered under the Apache License 2.0 or the GNU GPL 2.0 or later; Silverlight360.Https uses it under the Apache License 2.0. Both are in `licenses/mbedtls.txt`.
 
 Copyright The Mbed TLS Contributors.
 

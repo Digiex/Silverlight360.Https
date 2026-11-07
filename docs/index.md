@@ -1,4 +1,4 @@
-# Https360
+# Silverlight360.Https
 
 HTTP and HTTPS from a [Silverlight360](https://github.com/Digiex/Silverlight360) app on the Xbox 360, with TLS 1.2 and 1.3. It's libcurl 8.23 on Mbed TLS 3.6.7, the xsdk ports [curl-xenon](https://github.com/xenosworks/curl-xenon) and [mbedtls-xenon](https://github.com/xenosworks/mbedtls-xenon), built into a DLL of its own, `https360.xex`, which an app calls from C# through `HttpsClient`.
 
@@ -13,20 +13,19 @@ using (var client = new HttpsClient())   // checks servers against game:\cacert.
 }
 ```
 
-The platform's own `HttpWebRequest` does HTTPS too, but only with the certificate authorities the console knows, which are years old: it can't reach `example.com` or `github.com`, for instance. Https360 brings Mozilla's current roots and TLS 1.3, and its requests run on any thread, not the UI's. Its drop-in, `HttpsRequestCreator.Register()`, sends an app's existing `WebClient` and `HttpWebRequest` calls through it (see [Adding it to an app](using.md#the-drop-in)).
+The platform's own `HttpWebRequest` does HTTPS too, but only with the certificate authorities the console knows, which are years old: it can't reach `example.com` or `github.com`, for instance. Silverlight360.Https brings Mozilla's current roots and TLS 1.3, and its requests run on any thread, not the UI's. Its drop-in, `HttpsRequestCreator.Register()`, sends an app's existing `WebClient` and `HttpWebRequest` calls through it (see [Adding it to an app](using.md#the-drop-in)).
 
 ## Getting it
 
-A [release](https://github.com/Digiex/Https360/releases) has what an app needs, built:
+A [release](https://github.com/Digiex/Silverlight360.Https/releases) has what an app needs, built:
 
 | | |
 |---|---|
 | `https360.xex` | The DLL, at base `0x8D000000` |
 | `cacert.pem` | Mozilla's root certificates, which servers are checked against |
-| `Https360.dll`, `Https360.xml` | The C# side, with its documentation for IntelliSense: `HttpsClient`, and the drop-in for the platform's `WebClient` and `HttpWebRequest`. It needs Silverlight360.Common, which an app built with Silverlight360 has |
-| `csharp/` | Its source, `HttpsClient.cs` and `HttpsWebRequest.cs`, to compile into an app instead |
+| `Silverlight360.Https.dll`, `Silverlight360.Https.xml` | The C# side, with its documentation for IntelliSense: `HttpsClient`, and the drop-in for the platform's `WebClient` and `HttpWebRequest`. It needs Silverlight360.Common, which an app built with Silverlight360 has |
 | `licenses/`, `THIRD-PARTY-NOTICES.md` | curl's, Mbed TLS's and Mozilla's licenses, which go with the DLL |
-| `LICENSE.md`, `README.md`, `BUILD.txt` | Https360's license, and what the release was built from |
+| `LICENSE.md`, `README.md`, `BUILD.txt` | Silverlight360.Https's license, and what the release was built from |
 
 Then see [Adding it to an app](using.md). To build it yourself, see [Building](building.md).
 

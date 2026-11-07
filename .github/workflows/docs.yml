@@ -1,5 +1,5 @@
 # Builds the documentation site and publishes it to the gh-pages branch, which
-# GitHub Pages serves at https://digiex.github.io/Https360/. It runs when a
+# GitHub Pages serves at https://digiex.github.io/Silverlight360.Https/. It runs when a
 # push to master changes the docs or their build, and can be started by hand
 # from the Actions tab. Pull requests are built but not published, so a broken
 # link shows before the merge.

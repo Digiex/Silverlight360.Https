@@ -11,9 +11,9 @@ As Silverdash360's and XboxNGen's tools\Release.ps1 do:
 3. The DLL is built from scratch in WSL (make clean, then make), with what tools\Configure.ps1 set up: xsdk's
    dll-modules build and its toolchain (config.mk), and the submodules in deps\, which must be at the commits this
    one records.
-4. Https360.dll and Https360.xml are built from csharp\Https360.csproj by Silverlight360's tools\Build-XboxApp.ps1.
-5. build\release\Https360-<version>.zip has, in an Https360 folder, https360.xex, cacert.pem, Https360.dll and
-   Https360.xml, csharp\'s source, README.md, LICENSE.md, THIRD-PARTY-NOTICES.md, licenses\ and BUILD.txt: what
+4. Silverlight360.Https.dll and Silverlight360.Https.xml are built from csharp\Silverlight360.Https.csproj by Silverlight360's tools\Build-XboxApp.ps1.
+5. build\release\Silverlight360.Https-<version>.zip has, in a Silverlight360.Https folder, https360.xex, cacert.pem, Silverlight360.Https.dll and
+   Silverlight360.Https.xml, README.md, LICENSE.md, THIRD-PARTY-NOTICES.md, licenses\ and BUILD.txt: what
    was built from what.
 6. The release's notes are the commits since the last release, and the zip is its file.
 The build isn't run: test it first (docs\testing.md). Needs tools\Configure.ps1 run, and the GitHub CLI (gh),
@@ -38,7 +38,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$repository = 'Digiex/Https360'
+$repository = 'Digiex/Silverlight360.Https'
 
 # UTF-8 without a byte order mark, which GitHub would show in the notes.
 function Write-Utf8([string]$path, [string[]]$lines) {
@@ -62,7 +62,7 @@ if (-not $xsdk -or -not $toolchain -or -not (Test-Path -LiteralPath (Join-Path $
     throw 'xsdk or its toolchain isn''t configured: run .\tools\Configure.ps1.'
 }
 if (-not $sdk) {
-    throw 'Silverlight360 isn''t configured, which builds Https360.dll: run .\tools\Configure.ps1.'
+    throw 'Silverlight360 isn''t configured, which builds Silverlight360.Https.dll: run .\tools\Configure.ps1.'
 }
 Invoke-Git fetch --quiet --tags origin
 $commit = Invoke-Git rev-parse HEAD
@@ -98,27 +98,27 @@ foreach ($built in 'https360.xex', 'cacert.pem') {
     if (-not (Test-Path -LiteralPath (Join-Path $root $built))) { throw "The build made no $built." }
 }
 $toolchainName = wsl -e bash -lc "${toolchain}gcc --version | head -n 1"
-# The C# side as Https360.dll, with its XML documentation, by Silverlight360's build.
-& (Join-Path $sdk 'tools\Build-XboxApp.ps1') -Project (Join-Path $root 'csharp\Https360.csproj')
+# The C# side as Silverlight360.Https.dll, with its XML documentation, by Silverlight360's build.
+& (Join-Path $sdk 'tools\Build-XboxApp.ps1') -Project (Join-Path $root 'csharp\Silverlight360.Https.csproj')
 $library = Join-Path $root 'csharp\bin\Release'
-foreach ($built in 'Https360.dll', 'Https360.xml') {
+foreach ($built in 'Silverlight360.Https.dll', 'Silverlight360.Https.xml') {
     if (-not (Test-Path -LiteralPath (Join-Path $library $built))) { throw "The C# build made no $built." }
 }
 $ports = foreach ($port in 'curl-xenon', 'mbedtls-xenon') { "$port $(Get-Commit (Join-Path $root "deps\$port"))" }
 
 # 4. The zip.
-$name = "Https360 $Version"
+$name = "Silverlight360.Https $Version"
 $out = Join-Path $root 'build\release'
-$staging = Join-Path $out 'Https360'
+$staging = Join-Path $out 'Silverlight360.Https'
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Recurse -Force }
-$files = @(Invoke-Git ls-files README.md LICENSE.md THIRD-PARTY-NOTICES.md licenses csharp | Where-Object { $_ -notlike '*.csproj' }) +
+$files = @(Invoke-Git ls-files README.md LICENSE.md THIRD-PARTY-NOTICES.md licenses) +
     'https360.xex', 'cacert.pem'
 foreach ($f in $files) {
     $to = Join-Path $staging $f
     $null = New-Item -ItemType Directory (Split-Path $to -Parent) -Force
     Copy-Item -LiteralPath (Join-Path $root $f) -Destination $to
 }
-foreach ($f in 'Https360.dll', 'Https360.xml') {
+foreach ($f in 'Silverlight360.Https.dll', 'Silverlight360.Https.xml') {
     Copy-Item -LiteralPath (Join-Path $library $f) -Destination $staging
 }
 $build = @"
@@ -129,18 +129,17 @@ Built from commit $($commit.Substring(0, 12)), with:
 - $($ports -join "`n- ")
 - xsdk $(Get-Commit $xsdk), with its elf2xex.py and libxsdk.a
 - $toolchainName
-- Silverlight360 $(Get-Commit $sdk), for Https360.dll
+- Silverlight360 $(Get-Commit $sdk), for Silverlight360.Https.dll
 
 https360.xex is the DLL, at base 0x8D000000, and cacert.pem Mozilla's root certificates, which it checks
-servers against: both go beside an app's default.xex. Https360.dll is the C# side, HttpsClient and the
-drop-in for WebClient and HttpWebRequest, with Https360.xml, its documentation for IntelliSense; it needs
-Silverlight360.Common, which an app built with Silverlight360 has. csharp\ has its source, to compile into
-an app instead. See https://digiex.github.io/Https360/using/.
+servers against: both go beside an app's default.xex. Silverlight360.Https.dll is the C# side, HttpsClient and the
+drop-in for WebClient and HttpWebRequest, with Silverlight360.Https.xml, its documentation for IntelliSense; it needs
+Silverlight360.Common, which an app built with Silverlight360 has. See https://digiex.github.io/Silverlight360.Https/using/.
 
 The licenses in licenses\ and THIRD-PARTY-NOTICES.md go with https360.xex and cacert.pem.
 "@
 Write-Utf8 (Join-Path $staging 'BUILD.txt') ($build -split "`r?`n")
-$zip = Join-Path $out "Https360-$Version.zip"
+$zip = Join-Path $out "Silverlight360.Https-$Version.zip"
 Compress-Archive -Path $staging -DestinationPath $zip
 
 # 5. The notes: the commits since the last release before this commit.
@@ -153,7 +152,7 @@ $range = if ($previous) { "$previous..$commit" } else { $commit }
 $notes = @(if ($previous) { "## Changes since $previous" } else { '## Changes' }) + ''
 $notes += Invoke-Git log $range --no-merges --format='- %s (%h)'
 $notes += '', ("From $($commit.Substring(0, 7)). The zip has https360.xex and cacert.pem, to go beside an app's " +
-    'default.xex, Https360.dll with its XML documentation, the C# source, and the licenses that go with them: see ' +
+    'default.xex, Silverlight360.Https.dll with its XML documentation, and the licenses that go with them: see ' +
     'BUILD.txt in it.')
 $notesFile = Join-Path $out 'notes.md'
 Write-Utf8 $notesFile $notes
