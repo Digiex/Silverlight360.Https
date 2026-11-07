@@ -1,0 +1,53 @@
+# Builds the documentation site and publishes it to the gh-pages branch, which
+# GitHub Pages serves at https://digiex.github.io/Https360/. It runs when a
+# push to master changes the docs or their build, and can be started by hand
+# from the Actions tab. Pull requests are built but not published, so a broken
+# link shows before the merge.
+name: Docs
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+# One publish at a time; a newer push replaces one still waiting.
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # gh-deploy commits on top of gh-pages, so it needs that branch too.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs
+        run: pip install mkdocs==1.6.1
+
+      - name: Build
+        run: python -m mkdocs build --strict
+
+      - name: Publish to gh-pages
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python -m mkdocs gh-deploy --force --message "Deploy {sha} with MkDocs {version}"

@@ -1,0 +1,43 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B41C2E7-5D9F-4A63-B2E8-0F7C3D6A9E15}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>HttpsSample</RootNamespace>
+    <AssemblyName>HttpsSample</AssemblyName>
+    <SilverlightAppEntry>HttpsSample.App</SilverlightAppEntry>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <!-- Silverlight360, beside this repository's folder. -->
+    <XboxSilverlightSdk Condition=" '$(XboxSilverlightSdk)' == '' ">..\..\XboxSilverlightSdk</XboxSilverlightSdk>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="App.xaml.cs"><DependentUpon>App.xaml</DependentUpon></Compile>
+    <Compile Include="MainPage.xaml.cs"><DependentUpon>MainPage.xaml</DependentUpon></Compile>
+    <Compile Include="..\csharp\HttpsClient.cs"><Link>HttpsClient.cs</Link></Compile>
+    <Compile Include="$(XboxSilverlightSdk)\samples\Common\DebugLog.cs"><Link>Common\DebugLog.cs</Link></Compile>
+    <Compile Include="$(XboxSilverlightSdk)\samples\Common\NativeBuffer.cs"><Link>Common\NativeBuffer.cs</Link></Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Built by the Makefile in WSL; the package puts them beside default.xex. cacert.pem is Mozilla's roots, for
+         public hosts, and test-ca2.crt Mbed TLS's test CA, which tests\https_server.py's certificate is under. -->
+    <Content Include="..\https360.xex"><Link>https360.xex</Link></Content>
+    <Content Include="..\cacert.pem"><Link>cacert.pem</Link></Content>
+    <Content Include="..\test-ca2.crt"><Link>test-ca2.crt</Link></Content>
+  </ItemGroup>
+  <Import Project="$(XboxSilverlightSdk)\msbuild\XboxSilverlight.targets" />
+</Project>
