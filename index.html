@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="HTTP and HTTPS with TLS 1.2 and 1.3 for Silverlight360 apps on the Xbox 360" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Silverlight360.Https</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/Silverlight360.Https/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#getting-it">Getting it</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#why-curl-on-mbed-tls">Why curl on Mbed TLS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-it-runs">Where it runs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="using/">Adding it to an app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="building/">Building</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="testing/">Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/index.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="silverlight360https">Silverlight360.Https<a class="headerlink" href="#silverlight360https" title="Permanent link">&para;</a></h1>
+<p>HTTP and HTTPS from a <a href="https://github.com/Digiex/Silverlight360">Silverlight360</a> app on the Xbox 360, with TLS 1.2 and 1.3. It's libcurl 8.23 on Mbed TLS 3.6.7, the xsdk ports <a href="https://github.com/xenosworks/curl-xenon">curl-xenon</a> and <a href="https://github.com/xenosworks/mbedtls-xenon">mbedtls-xenon</a>, built into a DLL of its own, <code>https360.xex</code>, which an app calls from C# through <code>HttpsClient</code>.</p>
+<pre><code class="language-csharp">using (var client = new HttpsClient())   // checks servers against game:\cacert.pem
+{
+    // On a thread of its own: requests block until the response is in.
+    HttpsResponse page = client.Get(&quot;https://example.com/&quot;);
+    HttpsResponse posted = client.Post(&quot;https://api.example.com/items&quot;, &quot;application/json&quot;,
+        Encoding.UTF8.GetBytes(&quot;{\&quot;name\&quot;: \&quot;xbox\&quot;}&quot;));
+    client.Download(&quot;https://example.com/big.zip&quot;, @&quot;hdd:\Downloads\big.zip&quot;, true);
+}
+</code></pre>
+<p>The platform's own <code>HttpWebRequest</code> does HTTPS too, but only with the certificate authorities the console knows, which are years old: it can't reach <code>example.com</code> or <code>github.com</code>, for instance. Silverlight360.Https brings Mozilla's current roots and TLS 1.3, and its requests run on any thread, not the UI's. Its drop-in, <code>HttpsRequestCreator.Register()</code>, sends an app's existing <code>WebClient</code> and <code>HttpWebRequest</code> calls through it (see <a href="using/#the-drop-in">Adding it to an app</a>).</p>
+<h2 id="getting-it">Getting it<a class="headerlink" href="#getting-it" title="Permanent link">&para;</a></h2>
+<p>A <a href="https://github.com/Digiex/Silverlight360.Https/releases">release</a> has what an app needs, built:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>https360.xex</code></td>
+<td>The DLL, at base <code>0x8D000000</code></td>
+</tr>
+<tr>
+<td><code>cacert.pem</code></td>
+<td>Mozilla's root certificates, which servers are checked against</td>
+</tr>
+<tr>
+<td><code>Silverlight360.Https.dll</code>, <code>Silverlight360.Https.xml</code></td>
+<td>The C# side, with its documentation for IntelliSense: <code>HttpsClient</code>, and the drop-in for the platform's <code>WebClient</code> and <code>HttpWebRequest</code>. It needs Silverlight360.Common, which an app built with Silverlight360 has</td>
+</tr>
+<tr>
+<td><code>licenses/</code>, <code>THIRD-PARTY-NOTICES.md</code></td>
+<td>curl's, Mbed TLS's and Mozilla's licenses, which go with the DLL</td>
+</tr>
+<tr>
+<td><code>LICENSE.md</code>, <code>README.md</code>, <code>BUILD.txt</code></td>
+<td>Silverlight360.Https's license, and what the release was built from</td>
+</tr>
+</tbody>
+</table>
+<p>Then see <a href="using/">Adding it to an app</a>. To build it yourself, see <a href="building/">Building</a>.</p>
+<h2 id="why-curl-on-mbed-tls">Why curl on Mbed TLS<a class="headerlink" href="#why-curl-on-mbed-tls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Already ported for the console.</strong> xsdk's own ports, built on its sockets, <code>getaddrinfo</code>, <code>getentropy</code> and clocks, and checked on a real console: Mbed TLS's self-tests, TLS 1.2 to public hosts, and 9 MB/s downloads over ChaCha20-Poly1305.</li>
+<li><strong>Modern TLS.</strong> Mbed TLS 3.6 is an LTS release with TLS 1.3. mbedtls-xenon builds TLS 1.2 only by default; <code>config/mbedtls.h</code> keeps 1.3 in.</li>
+<li><strong>A real HTTP client.</strong> curl brings redirects, chunked transfers, keep-alive, timeouts, <code>Range</code> resumes and certificate name checks, none of which an app has to write itself.</li>
+<li><strong>Fast on the console's CPU.</strong> Mbed TLS offers ChaCha20-Poly1305 first, which ran about four times faster than AES-GCM on the console, and servers that weigh the client's order take it.</li>
+<li><strong>Licenses an app can ship.</strong> curl's license is MIT-style and Mbed TLS's is Apache 2.0. BearSSL has no TLS 1.3, wolfSSL is GPL unless bought, and OpenSSL is several times larger, with no xsdk port.</li>
+</ul>
+<h2 id="where-it-runs">Where it runs<a class="headerlink" href="#where-it-runs" title="Permanent link">&para;</a></h2>
+<p>On a console (retail kernel 2.0.17559, running unsigned code) inside <a href="https://github.com/Digiex/Silverdash360">Silverdash360</a>, and in <a href="https://github.com/jessenic/xenia-edge">xenia-edge</a>. See <a href="testing/">Testing</a> for what was checked where.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="using/" class="btn btn-neutral float-right" title="Adding it to an app">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+    
+      <span><a href="using/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2026-11-07 18:53:58.569621+00:00
+-->

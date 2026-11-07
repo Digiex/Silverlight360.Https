@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/api/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>API - Silverlight360.Https</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "API";
+        var mkdocs_page_input_path = "api.md";
+        var mkdocs_page_url = "/Silverlight360.Https/api/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../using/">Adding it to an app</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">API</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#httpsclient">HttpsClient</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#httpsresponse">HttpsResponse</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#httpsexception">HttpsException</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-drop-in-httpswebrequest">The drop-in: HttpsWebRequest</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../building/">Building</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing/">Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">API</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/api.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
+<p><code>Silverlight360.Https.dll</code> (<code>csharp/HttpsClient.cs</code>), namespace <code>Silverlight360.Https</code>.</p>
+<h2 id="httpsclient">HttpsClient<a class="headerlink" href="#httpsclient" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new HttpsClient()</code></td>
+<td>A client checking servers against <code>game:\cacert.pem</code></td>
+</tr>
+<tr>
+<td><code>new HttpsClient(string caFile)</code></td>
+<td>A client checking servers against the PEM root certificates in <code>caFile</code></td>
+</tr>
+<tr>
+<td><code>HttpsResponse Get(string url)</code></td>
+<td>A GET, its whole body in memory</td>
+</tr>
+<tr>
+<td><code>HttpsResponse Post(string url, string contentType, byte[] body)</code></td>
+<td>A POST</td>
+</tr>
+<tr>
+<td><code>HttpsResponse Send(string method, string url, string[] headers, byte[] body)</code></td>
+<td>Any method; <code>headers</code> are <code>"Name: value"</code> lines, <code>body</code> may be null</td>
+</tr>
+<tr>
+<td><code>HttpsResponse Download(string url, string path, bool resume)</code></td>
+<td>A GET written straight to a file on the console's drives, such as <code>hdd:\Downloads\a.zip</code>, with no size limit; its <code>Body</code> is null</td>
+</tr>
+<tr>
+<td><code>void Resolve(string entry)</code></td>
+<td>Sends a host and port to another address for every request after, as <code>"localhost:7381:192.168.0.125"</code>; the certificate is still checked against the name</td>
+</tr>
+<tr>
+<td><code>void Cancel()</code></td>
+<td>From another thread: stops the request at its next block of data, which then throws <code>HttpsException</code> with <code>Cancelled</code></td>
+</tr>
+<tr>
+<td><code>long BytesReceived</code>, <code>long BytesTotal</code></td>
+<td>From another thread: the body's bytes so far (a resumed download's first part among them), and its whole size, -1 until the server says</td>
+</tr>
+<tr>
+<td><code>void Dispose()</code></td>
+<td>Closes the client's connections</td>
+</tr>
+</tbody>
+</table>
+<p>Settings, for the requests after they're set:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FollowRedirects</code></td>
+<td>Follows 3xx responses' <code>Location</code>, up to 10 times; on unless set</td>
+</tr>
+<tr>
+<td><code>TimeoutSeconds</code></td>
+<td>The longest a request may take; 0, no limit, unless set</td>
+</tr>
+<tr>
+<td><code>ConnectTimeoutSeconds</code></td>
+<td>The longest a connection may take to open, name lookup and handshake included; 30 unless set</td>
+</tr>
+<tr>
+<td><code>MaxResponseBytes</code></td>
+<td>The largest body kept in memory; 0 for the DLL's 64 MB. <code>Download</code> has no limit</td>
+</tr>
+<tr>
+<td><code>Insecure</code></td>
+<td>Skips certificate and name checks: for a test server only</td>
+</tr>
+<tr>
+<td><code>Verbose</code></td>
+<td>Writes curl's trace of each request to the log, <code>default.log</code> in <code>game:\</code> where it can be written, and to DbgPrint</td>
+</tr>
+</tbody>
+</table>
+<p>The DLL, for all clients:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>static void Start(uint heapBytes)</code></td>
+<td>Starts the DLL with a heap of up to <code>heapBytes</code>, reserved now and committed as it's used; once, and the first client does it with <code>DefaultHeapBytes</code> if nothing has</td>
+</tr>
+<tr>
+<td><code>static uint Version</code></td>
+<td>The wrapper's API version, then curl's, 16 bits each: <code>0x00010817</code> for curl 8.23</td>
+</tr>
+<tr>
+<td><code>static uint HeapCommitted</code>, <code>static uint HeapPeak</code></td>
+<td>The DLL's heap in use now, and the most it has held at once: what to size <code>Start</code> by</td>
+</tr>
+</tbody>
+</table>
+<p>With <code>Download</code> and <code>resume</code>, a file already there is taken as the first part and the rest asked for with <code>Range</code>; a server that sends the whole file again (200) starts it over.</p>
+<h2 id="httpsresponse">HttpsResponse<a class="headerlink" href="#httpsresponse" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int Status</code></td>
+<td>The HTTP status, as 200 or 404</td>
+</tr>
+<tr>
+<td><code>string Headers</code></td>
+<td>The final response's header lines as they came, its status line first</td>
+</tr>
+<tr>
+<td><code>string Header(string name)</code></td>
+<td>The first value of a header, its name in any case; null if there's none</td>
+</tr>
+<tr>
+<td><code>byte[] Body</code>, <code>string Text</code></td>
+<td>The body, and the body as UTF-8; null for a <code>Download</code></td>
+</tr>
+<tr>
+<td><code>string Url</code></td>
+<td>The URL the response came from, after redirects</td>
+</tr>
+<tr>
+<td><code>string TlsVersion</code></td>
+<td><code>"TLSv1.3"</code> or <code>"TLSv1.2"</code>, empty over HTTP</td>
+</tr>
+<tr>
+<td><code>string Cipher</code></td>
+<td>Mbed TLS's name for the cipher suite, as <code>"TLS1-3-CHACHA20-POLY1305-SHA256"</code></td>
+</tr>
+<tr>
+<td><code>int Redirects</code>, <code>int ElapsedMilliseconds</code></td>
+<td>The redirects followed, and the whole request's time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="httpsexception">HttpsException<a class="headerlink" href="#httpsexception" title="Permanent link">&para;</a></h2>
+<p>No response came. <code>Code</code> is curl's <code>CURLcode</code>; the message is curl's.</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Code</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CouldNotResolve</code></td>
+<td>6</td>
+<td>The name didn't resolve</td>
+</tr>
+<tr>
+<td><code>CouldNotConnect</code></td>
+<td>7</td>
+<td>Nothing answered at the address</td>
+</tr>
+<tr>
+<td><code>WriteError</code></td>
+<td>23</td>
+<td>A <code>Download</code>'s file couldn't be written</td>
+</tr>
+<tr>
+<td><code>TimedOut</code></td>
+<td>28</td>
+<td><code>TimeoutSeconds</code> or <code>ConnectTimeoutSeconds</code> ran out</td>
+</tr>
+<tr>
+<td><code>TlsFailed</code></td>
+<td>35</td>
+<td>The TLS handshake failed</td>
+</tr>
+<tr>
+<td><code>Cancelled</code></td>
+<td>42</td>
+<td><code>Cancel()</code></td>
+</tr>
+<tr>
+<td><code>TooManyRedirects</code></td>
+<td>47</td>
+<td>More than 10 redirects</td>
+</tr>
+<tr>
+<td><code>BadCertificate</code></td>
+<td>60</td>
+<td>The server's certificate didn't check out</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-drop-in-httpswebrequest">The drop-in: HttpsWebRequest<a class="headerlink" href="#the-drop-in-httpswebrequest" title="Permanent link">&para;</a></h2>
+<p><code>Silverlight360.Https.dll</code> (<code>csharp/HttpsWebRequest.cs</code>), namespace <code>Silverlight360.Https</code>. It makes the platform's own <code>WebRequest.Create</code>, <code>HttpWebRequest</code> and <code>WebClient</code> go through Silverlight360.Https, so existing code needs no change:</p>
+<pre><code class="language-csharp">HttpsRequestCreator.Register();         // https://; Register(true) takes http:// too
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpsRequestCreator.Register()</code>, <code>Register(bool http)</code></td>
+<td><code>WebRequest.RegisterPrefix</code> for <code>https://</code>, and <code>http://</code> with <code>true</code>; false if a prefix couldn't be registered. Once, at the app's start: it holds until the app ends</td>
+</tr>
+<tr>
+<td><code>HttpsWebRequest : HttpWebRequest</code></td>
+<td><code>Method</code>, <code>Headers</code>, <code>ContentType</code>, <code>Accept</code>, <code>CookieContainer</code>, <code>BeginGetRequestStream</code>/<code>EndGetRequestStream</code>, <code>BeginGetResponse</code>/<code>EndGetResponse</code> and <code>Abort</code>, as the platform's; and <code>MaxResponseBytes</code> and <code>TimeoutSeconds</code> of its own</td>
+</tr>
+<tr>
+<td><code>HttpsWebRequest.UserAgent</code></td>
+<td>The <code>User-Agent</code> to send, where the request is typed <code>HttpsWebRequest</code>. The platform's <code>HttpWebRequest.UserAgent</code> can't be used on any class but its own: it throws <code>NotImplementedException</code> (its <code>GetUserAgent</code> and <code>SetUserAgent</code> are internal to <code>System.Net</code>), and <code>Headers</code> won't take a <code>User-Agent</code></td>
+</tr>
+<tr>
+<td><code>HttpsWebRequest.DefaultUserAgent</code></td>
+<td>Sent when a request gives none: <code>"Silverlight360.Https"</code> unless set. Some servers, GitHub's API among them, turn away a request without one</td>
+</tr>
+<tr>
+<td><code>HttpsWebResponse : HttpWebResponse</code></td>
+<td><code>StatusCode</code>, <code>StatusDescription</code>, <code>Headers</code> (a <code>WebHeaderCollection</code>), <code>ContentType</code>, <code>ContentLength</code>, <code>ResponseUri</code> (after redirects), <code>Cookies</code>, <code>GetResponseStream()</code>, and <code>TlsVersion</code></td>
+</tr>
+</tbody>
+</table>
+<p>As the platform's client stack does:</p>
+<ul>
+<li>callbacks come on a thread pool thread, and <code>WebClient</code> takes its events to the thread that started it;</li>
+<li>a status of 400 or more throws a <code>WebException</code> from <code>EndGetResponse</code> with the response in it, its <code>Status</code> <code>UnknownError</code> (this runtime's <code>WebExceptionStatus</code> has no <code>ProtocolError</code>), so <code>WebClient</code>'s <code>e.Error</code> has it;</li>
+<li>no response is <code>ConnectFailure</code>, <code>Abort()</code> is <code>RequestCanceled</code>, and a body over <code>MaxResponseBytes</code> is <code>MessageLengthLimitExceeded</code>.</li>
+</ul>
+<p>Requests share a pool of four clients, so a host's connection stays open from one request to the next. The response is read whole before <code>EndGetResponse</code> returns, whatever <code>AllowReadStreamBuffering</code> says. Credentials (<code>ICredentials</code>) aren't sent.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../using/" class="btn btn-neutral float-left" title="Adding it to an app"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../building/" class="btn btn-neutral float-right" title="Building">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+      <span><a href="../using/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../building/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

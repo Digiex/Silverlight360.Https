@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/development/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Development - Silverlight360.Https</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Development";
+        var mkdocs_page_input_path = "development.md";
+        var mkdocs_page_url = "/Silverlight360.Https/development/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../using/">Adding it to an app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../building/">Building</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing/">Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Development</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#whats-here">What's here</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#releasing">Releasing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-docs">The docs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/development.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
+<h2 id="whats-here">What's here<a class="headerlink" href="#whats-here" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/https.c</code></td>
+<td>The DLL's API on curl's easy interface: clients, requests, responses copied out</td>
+</tr>
+<tr>
+<td><code>src/runtime.c</code></td>
+<td>The runtime xsdk's title start would set up, set up by <code>https360_init</code> instead, with a bounded heap (from UnRar360)</td>
+</tr>
+<tr>
+<td><code>src/export.h</code>, <code>src/runtime.h</code></td>
+<td><code>HTTPS360_EXPORT</code>, which gives a function an ordinal for elf2xex, and the runtime's interface</td>
+</tr>
+<tr>
+<td><code>config/mbedtls.h</code></td>
+<td>Mbed TLS's configuration: the default, TLS 1.3 kept</td>
+</tr>
+<tr>
+<td><code>deps/curl-xenon</code>, <code>deps/mbedtls-xenon</code></td>
+<td>The two ports, as submodules</td>
+</tr>
+<tr>
+<td><code>deps/CMakeLists.txt</code></td>
+<td>Builds them as static libraries</td>
+</tr>
+<tr>
+<td><code>https360.ld</code>, <code>Makefile</code></td>
+<td>The DLL's layout, at base <code>0x8D000000</code>, and its build</td>
+</tr>
+<tr>
+<td><code>csharp/HttpsClient.cs</code>, <code>csharp/HttpsWebRequest.cs</code></td>
+<td>The C# side: <code>HttpsClient</code>, <code>HttpsResponse</code>, <code>HttpsException</code>, and the drop-in</td>
+</tr>
+<tr>
+<td><code>csharp/Silverlight360.Https.csproj</code></td>
+<td>Builds them as <code>Silverlight360.Https.dll</code>, a Silverlight360 class library, with its XML documentation</td>
+</tr>
+<tr>
+<td><code>sample/</code></td>
+<td>A Silverlight360 app that runs 31 checks against a local server and public hosts</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>The local HTTPS server, and a check of what the sample downloaded</td>
+</tr>
+<tr>
+<td><code>tools/Configure.ps1</code>, <code>tools/Config.ps1</code></td>
+<td>Sets up the build (<a href="../building/">Building</a>), and reads what it saved</td>
+</tr>
+<tr>
+<td><code>tools/Release.ps1</code></td>
+<td>Builds a release and publishes it on GitHub</td>
+</tr>
+<tr>
+<td><code>docs/</code>, <code>mkdocs.yml</code></td>
+<td>This site</td>
+</tr>
+</tbody>
+</table>
+<p>The C side and the C# side share the layout of a transfer (<code>Transfer</code> in <code>src/https.c</code>, 672 bytes, which a static assert holds to, and the offsets at the top of <code>HttpsClient.cs</code>), big-endian; a change to one is a change to both. The exports are by ordinal, <code>#1</code> to <code>#9</code>: the <code>HTTPS360_EXPORT</code> lines in <code>src/https.c</code>, and the <code>DllImport</code>s.</p>
+<h2 id="releasing">Releasing<a class="headerlink" href="#releasing" title="Permanent link">&para;</a></h2>
+<pre><code class="language-powershell">.\tools\Release.ps1 -DryRun     # builds and zips, shows the notes, publishes nothing
+.\tools\Release.ps1             # 0.1.0 first, then the last release's patch raised
+.\tools\Release.ps1 -Bump Minor
+</code></pre>
+<p>As Silverdash360's and XboxNGen's release scripts do:</p>
+<ol>
+<li>The release is made from the commit as it is: nothing may be uncommitted, and the commit must be on GitHub already. Nothing is pushed.</li>
+<li>The version is <code>-Version</code> if given, else the last release's (the highest <code>v&lt;version&gt;</code> tag) with its patch, or <code>-Bump</code>'s part, raised. It's tagged <code>v&lt;version&gt;</code> on the commit, by <code>gh</code>.</li>
+<li>The DLL is built from scratch in WSL (<code>make clean</code>, then <code>make</code>), with what <code>tools\Configure.ps1</code> set up, and the submodules at the commits this one records.</li>
+<li><code>Silverlight360.Https.dll</code> and <code>Silverlight360.Https.xml</code> are built from <code>csharp\Silverlight360.Https.csproj</code> by Silverlight360's <code>tools\Build-XboxApp.ps1</code>, so a release needs Silverlight360 configured.</li>
+<li><code>Silverlight360.Https-&lt;version&gt;.zip</code>, in <code>build\release</code>, has in a <code>Silverlight360.Https</code> folder <code>https360.xex</code>, <code>cacert.pem</code>, <code>Silverlight360.Https.dll</code>, <code>Silverlight360.Https.xml</code>, <code>README.md</code>, <code>LICENSE.md</code>, <code>THIRD-PARTY-NOTICES.md</code>, <code>licenses\</code> and <code>BUILD.txt</code>, which records the commits of Silverlight360.Https, the two ports and xsdk it was built from, and the toolchain.</li>
+<li>The release's notes are the commits since the last release, and the zip is its file.</li>
+</ol>
+<p>It needs the GitHub CLI (<code>gh</code>), signed in, unless <code>-DryRun</code>. Test a build before releasing it (<a href="../testing/">Testing</a>): the script builds it, it doesn't run it.</p>
+<h2 id="the-docs">The docs<a class="headerlink" href="#the-docs" title="Permanent link">&para;</a></h2>
+<p>This site is the <code>docs</code> folder, built with <a href="https://www.mkdocs.org/">MkDocs</a> (<code>mkdocs.yml</code>). A push to <code>master</code> that changes it publishes it to GitHub Pages (<code>.github/workflows/docs.yml</code>). To preview it:</p>
+<pre><code class="language-bash">pip install mkdocs==1.6.1
+python -m mkdocs serve
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../contributing/" class="btn btn-neutral float-left" title="Contributing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+      <span><a href="../contributing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

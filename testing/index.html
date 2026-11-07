@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/testing/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Testing - Silverlight360.Https</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Testing";
+        var mkdocs_page_input_path = "testing.md";
+        var mkdocs_page_url = "/Silverlight360.Https/testing/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../using/">Adding it to an app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../building/">Building</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Testing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#in-xenia-edge">In xenia-edge</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#on-a-console">On a console</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Testing</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/testing.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
+<h2 id="in-xenia-edge">In xenia-edge<a class="headerlink" href="#in-xenia-edge" title="Permanent link">&para;</a></h2>
+<pre><code class="language-powershell">New-Item -ItemType Directory -Force $env:TEMP\https-content\HttpsTest
+Start-Process python -ArgumentList '-I', 'tests\https_server.py', '--seconds', '600'
+..\XboxSilverlightSdk\tools\Test-XboxApp.ps1 -Xex .\sample\bin\Release\xbox\default.xex -Output $env:TEMP\https-run `
+    -ExtraArgs &quot;--content_root=$env:TEMP\https-content&quot; -Seconds 150
+python tests\verify_downloads.py $env:TEMP\https-content\HttpsTest
+</code></pre>
+<p><code>tests/https_server.py</code> serves HTTPS on 7443, with TLS 1.2 and 1.3, and on 7444, with TLS 1.2 only. It uses Mbed TLS's test certificate for <code>localhost</code>, from mbedtls-xenon's <code>framework/data_files</code>. The sample sends <code>localhost</code> to 127.0.0.1 with <code>Resolve</code>. On a console, set <code>Server</code> in <code>sample/MainPage.xaml.cs</code> to the PC's address.</p>
+<p>What passed in xenia-edge, 2026-11-02: all 31 checks; the heap peaked at 1.9 MB.</p>
+<p><strong>Local:</strong></p>
+<ul>
+<li>GETs over TLS 1.3 and TLS 1.2, their SHA-256 checked;</li>
+<li>POSTs from 1 KB to 1 MB, echoed back with their hashes, plus PUT, DELETE and HEAD;</li>
+<li>a redirect followed and one not followed, a 404, and a response over <code>MaxResponseBytes</code> refused;</li>
+<li>an 8 MB download to <code>hdd:</code>, one cancelled at 2 MB and then resumed with a 206, both byte for byte;</li>
+<li>a wrong name refused, then accepted with <code>Insecure</code>, and a closed port refused.</li>
+</ul>
+<p><strong>Public:</strong></p>
+<ul>
+<li>example.com, www.google.com and api.github.com, over TLS 1.3 with ChaCha20-Poly1305;</li>
+<li>tls-v1-2.badssl.com over TLS 1.2;</li>
+<li>expired, wrong-host, self-signed and untrusted-root certificates from badssl.com, each refused for its own reason.</li>
+</ul>
+<p><strong>Uploads needed a fix in xenia-edge.</strong> xenia opens a guest TCP socket as a host acceptor and swaps in a new host socket at <code>connect</code>. That lost the guest's FIONBIO and its options, so a non-blocking socket's <code>recv</code> blocked on the host. A POST larger than one TLS record stalled: curl reads between records, and the read never came back. The fix is in xenia-edge's <code>src/xenia/kernel/xsocket.cc</code> and <code>xsocket.h</code>. It is not a console problem.</p>
+<h2 id="on-a-console">On a console<a class="headerlink" href="#on-a-console" title="Permanent link">&para;</a></h2>
+<p>Before an app calls a new build, check that the console loads it: a DllImport of a module that can't load turns into a call through null, which can power the console off. The CLR loads a DllImport module as <code>GAME:\&lt;name&gt;</code> with <code>XexLoadImage</code> flags 9; Silverdash360's debug server does the same with <code>xex.probe GAME:\https360.xex 9</code>, then unloads it.</p>
+<p>What ran on a console, 2026-11-07, inside Silverdash360 (retail kernel 2.0.17559, running unsigned code):</p>
+<ul>
+<li><code>XexLoadImage</code> loaded the DLL at <code>0x8D000000</code> (status 0), after the runtime had started the network;</li>
+<li>GETs to xenia-manager.github.io, raw.githubusercontent.com and api.github.com, over TLS 1.3 with ChaCha20-Poly1305: 170 to 370 ms for the first request to a host, less on a kept connection;</li>
+<li>a 404 from GitHub Pages, as a response;</li>
+<li>GitHub's release download, following its redirect to GitHub's file storage, 1.2 MB checked against its SHA-256;</li>
+<li>the heap peaked at 1.7 MB.</li>
+</ul>
+<p>Again the same day, the DLL built against xsdk's <code>dll-modules</code> <code>libxsdk.a</code> (<code>tools\Configure.ps1</code>'s xsdk, the one XboxNGen uses), with the drop-in:</p>
+<ul>
+<li>Silverdash360 loaded it at its start and fetched its art with it;</li>
+<li>before <code>HttpsRequestCreator.Register()</code>, the platform's <code>HttpWebRequest</code> failed for example.com and github.com; after it, <code>WebRequest.Create</code> gave <code>HttpsWebRequest</code>s, which got 200 from example.com, github.com (524 KB) and api.github.com;</li>
+<li><code>WebClient.DownloadStringAsync</code> got example.com and x360db's <code>info.json</code>, the content type in <code>ResponseHeaders</code>, and a 404 came as <code>e.Error</code>, a <code>WebException</code> with the response, its status 404;</li>
+<li><code>WebClient.UploadStringAsync</code> POSTed its body, with its <code>Content-Type</code>, and <code>Accept</code> set on the request arrived, with the default <code>User-Agent</code>.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../building/" class="btn btn-neutral float-left" title="Building"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../limits/" class="btn btn-neutral float-right" title="Limits">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+      <span><a href="../building/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../limits/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

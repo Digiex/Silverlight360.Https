@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/using/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Adding it to an app - Silverlight360.Https</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adding it to an app";
+        var mkdocs_page_input_path = "using.md";
+        var mkdocs_page_url = "/Silverlight360.Https/using/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Adding it to an app</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-drop-in">The drop-in</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-each-one-has">What each one has</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#making-requests">Making requests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#certificates">Certificates</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../building/">Building</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing/">Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adding it to an app</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/using.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="adding-it-to-an-app">Adding it to an app<a class="headerlink" href="#adding-it-to-an-app" title="Permanent link">&para;</a></h1>
+<p>An app needs the C# side and two files beside <code>default.xex</code>:</p>
+<ul>
+<li><strong><code>Silverlight360.Https.dll</code></strong>, the C# side, <code>HttpsClient</code> and the drop-in, with <code>Silverlight360.Https.xml</code> beside it for IntelliSense: a reference to the release's DLL, or a <code>ProjectReference</code> to the repository's <code>csharp/Silverlight360.Https.csproj</code>.</li>
+<li><strong><code>https360.xex</code></strong> and <strong><code>cacert.pem</code></strong>, as <code>Content</code>.</li>
+</ul>
+<p>The C# side uses <code>NativeBuffer</code> from Silverlight360's <a href="https://digiex.github.io/Silverlight360/common-library/">common library</a>, Silverlight360.Common, for the memory the DLL reads and writes. An app built with Silverlight360 references that library already, and its build puts <code>Silverlight360.Common.dll</code> in the package.</p>
+<p>In the app's project, as <code>sample/HttpsSample.csproj</code> has them:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+  &lt;ProjectReference Include=&quot;..\Silverlight360.Https\csharp\Silverlight360.Https.csproj&quot; /&gt;
+  &lt;!-- or, from a release: &lt;Reference Include=&quot;Silverlight360.Https&quot;&gt;&lt;HintPath&gt;..\Silverlight360.Https\Silverlight360.Https.dll&lt;/HintPath&gt;&lt;/Reference&gt; --&gt;
+&lt;/ItemGroup&gt;
+&lt;ItemGroup&gt;
+  &lt;Content Include=&quot;..\Silverlight360.Https\https360.xex&quot;&gt;&lt;Link&gt;https360.xex&lt;/Link&gt;&lt;/Content&gt;
+  &lt;Content Include=&quot;..\Silverlight360.Https\cacert.pem&quot;&gt;&lt;Link&gt;cacert.pem&lt;/Link&gt;&lt;/Content&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p>Ship the release's <code>licenses</code> folder and <code>THIRD-PARTY-NOTICES.md</code> with them too: curl's and Mbed TLS's licenses ask for their notices to go with the binary. Silverlight360.Https's own license asks for a visible reference to <a href="https://github.com/Digiex/Silverlight360.Https">https://github.com/Digiex/Silverlight360.Https</a> in the app's documentation, credits or "about" information (see <a href="../licenses/">Licenses</a>).</p>
+<h2 id="the-drop-in">The drop-in<a class="headerlink" href="#the-drop-in" title="Permanent link">&para;</a></h2>
+<p>To leave an app's <code>WebClient</code> and <code>HttpWebRequest</code> code as it is, register the drop-in, in <code>Silverlight360.Https.dll</code>, once, at the start:</p>
+<pre><code class="language-csharp">HttpsRequestCreator.Register();
+var web = new WebClient();
+web.DownloadStringCompleted += (s, e) =&gt; Show(e.Error == null ? e.Result : e.Error.Message);
+web.DownloadStringAsync(new Uri(&quot;https://example.com/&quot;));
+</code></pre>
+<p>From then on every <code>https://</code> request the app makes through the platform goes through Silverlight360.Https, with TLS 1.3 and Mozilla's roots; <code>Register(true)</code> takes <code>http://</code> too. On a console the platform's own stack fails for <code>example.com</code> and <code>github.com</code>, and Silverlight360.Https's doesn't. See <a href="../api/#the-drop-in-httpswebrequest">API</a>.</p>
+<h2 id="what-each-one-has">What each one has<a class="headerlink" href="#what-each-one-has" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>HttpsClient</code></th>
+<th><code>HttpsWebRequest</code></th>
+<th>The platform's <code>HttpWebRequest</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS 1.3, Mozilla's current roots</td>
+<td>yes</td>
+<td>yes</td>
+<td>no: the console's own TLS and roots, which fail for <code>example.com</code> and <code>github.com</code></td>
+</tr>
+<tr>
+<td>Works off the UI thread</td>
+<td>blocks, on any thread</td>
+<td><code>Begin</code>/<code>End</code>, on the thread pool</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>WebClient</code></td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Request body</td>
+<td><code>byte[]</code></td>
+<td>a stream</td>
+<td>a stream</td>
+</tr>
+<tr>
+<td>Response body</td>
+<td>in memory, or a file of any size</td>
+<td>in memory</td>
+<td>in memory, or read as it comes</td>
+</tr>
+<tr>
+<td>Response headers</td>
+<td>lines as they came, <code>Header(name)</code></td>
+<td><code>WebHeaderCollection</code></td>
+<td><code>WebHeaderCollection</code></td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>no</td>
+<td><code>CookieContainer</code></td>
+<td><code>CookieContainer</code></td>
+</tr>
+<tr>
+<td>Progress, cancelling</td>
+<td><code>BytesReceived</code>, <code>Cancel()</code></td>
+<td><code>Abort()</code></td>
+<td><code>WebClient</code>'s progress events, <code>Abort()</code></td>
+</tr>
+<tr>
+<td>Downloads to a file, resumed</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Credentials (<code>ICredentials</code>)</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Compressed responses</td>
+<td>no</td>
+<td>no</td>
+<td>not checked</td>
+</tr>
+</tbody>
+</table>
+<h2 id="making-requests">Making requests<a class="headerlink" href="#making-requests" title="Permanent link">&para;</a></h2>
+<p>Requests block until the response is in, so make them on a thread of their own, never the UI's:</p>
+<pre><code class="language-csharp">ThreadPool.QueueUserWorkItem(delegate
+{
+    try
+    {
+        using (var client = new HttpsClient { TimeoutSeconds = 30 })
+        {
+            HttpsResponse response = client.Get(&quot;https://api.github.com/&quot;);
+            string text = response.Status == 200 ? response.Text : null;
+            Deployment.Current.Dispatcher.BeginInvoke(() =&gt; Show(text));
+        }
+    }
+    catch (HttpsException e)
+    {
+        // No response came: e.Code is curl's, such as HttpsException.BadCertificate.
+    }
+});
+</code></pre>
+<ul>
+<li><strong>One request at a time per client.</strong> A client keeps its connections open, so the next request to the same host skips the handshake: 7 ms against 260 ms for the first in xenia-edge. Use one client per thread for requests at the same time.</li>
+<li><strong>Statuses aren't errors.</strong> Any HTTP response comes back as an <code>HttpsResponse</code>, 404 included. <code>HttpsException</code> means no response came.</li>
+<li><strong>The first client starts the DLL</strong> with a heap of <code>DefaultHeapBytes</code> (96 MB, reserved and committed as it's used). Call <code>HttpsClient.Start(bytes)</code> before the first client for another size; <code>HeapPeak</code> says what the requests needed. Silverdash360 gives it 16 MB, and its requests have peaked under 2 MB.</li>
+<li><strong>The DLL loads at <code>0x8D000000</code>.</strong> In a Silverlight app's process on the console, <code>0x8A000000</code>, <code>0x8C000000</code> and <code>0x8E000000</code> are taken, so another DLL of the app's can't be at this base. A DllImport of a module that can't load turns into a call through null, which can power the console off, so check a new build loads first (see <a href="../testing/">Testing</a>).</li>
+</ul>
+<h2 id="certificates">Certificates<a class="headerlink" href="#certificates" title="Permanent link">&para;</a></h2>
+<p>Servers are checked against <code>game:\cacert.pem</code>, and against the console's clock, which has to be right. Pass another PEM file to <code>new HttpsClient(path)</code> to trust other roots. <code>Insecure</code> turns the checks off, for a test server only.</p>
+<p>See <a href="../api/">API</a> for everything a client has.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../api/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../api/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

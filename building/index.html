@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://digiex.github.io/Silverlight360.Https/building/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Building - Silverlight360.Https</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Building";
+        var mkdocs_page_input_path = "building.md";
+        var mkdocs_page_url = "/Silverlight360.Https/building/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/powershell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Silverlight360.Https
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../using/">Adding it to an app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api/">API</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Building</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#silverlight360httpsdll">Silverlight360.Https.dll</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-sample">The sample</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing/">Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../limits/">Limits</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../licenses/">Licenses</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Silverlight360.Https</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Building</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Digiex/Silverlight360.Https/edit/master/docs/building.md">Edit on Digiex/Silverlight360.Https</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h1>
+<p>The DLL builds in WSL (or on Linux) with xsdk's toolchain. Clone with the submodules, then set up the rest, in PowerShell:</p>
+<pre><code class="language-powershell">git clone --recursive https://github.com/Digiex/Silverlight360.Https.git
+cd Silverlight360.Https
+.\tools\Configure.ps1
+</code></pre>
+<p><code>Configure.ps1</code> gets what the build needs, each the way that suits it:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curl-xenon</strong>, <strong>mbedtls-xenon</strong></td>
+<td>Submodules in <code>deps/</code>, at the commits Silverlight360.Https is built from (Mbed TLS's <code>framework</code> with them)</td>
+<td>Checked out if a clone wasn't <code>--recursive</code></td>
+</tr>
+<tr>
+<td><strong>xsdk</strong></td>
+<td><a href="https://github.com/jessenic/xsdk">jessenic/xsdk</a>, branch <code>dll-modules</code>, the build XboxNGen uses: its <code>elf2xex.py</code> has <code>--dll</code>, and its <code>build/libxsdk.a</code> is what the DLL links</td>
+<td>Found from <code>-Xsdk</code>, <code>XSDK</code>, XboxNGen's configuration beside this repository, or a checkout two folders up (<code>C:\Proj\xsdk</code>) or beside it; otherwise cloned two folders up, if you say so. <code>libxsdk.a</code> is built if it isn't</td>
+</tr>
+<tr>
+<td><strong>xsdk's toolchain</strong></td>
+<td>GCC 15.3, binutils and newlib for <code>powerpc-xsdk-elf</code>, in WSL</td>
+<td>Found in <code>~/xsdk-gcc</code> or at <code>-Toolchain</code>; otherwise built there with xsdk's <code>tools/toolchain/build.sh</code>, if you say so: about 10 minutes, and a 136 MB download of their sources</td>
+</tr>
+<tr>
+<td><strong>Silverlight360</strong></td>
+<td>The SDK, for <code>Silverlight360.Https.dll</code> and the sample</td>
+<td>Found from <code>-Silverlight360</code>, its environment variable, or a checkout beside this repository; otherwise cloned there, if you say so</td>
+</tr>
+</tbody>
+</table>
+<p>It also checks WSL has <code>make</code>, <code>cmake</code>, <code>ninja</code>, <code>python3</code> and <code>git</code> (<code>sudo apt install build-essential cmake ninja-build python3 git</code> in Debian; xsdk's own <code>docs/GETTING_STARTED.md</code> lists what its toolchain needs besides). <code>-NonInteractive</code> asks nothing: <code>-CloneXsdk</code>, <code>-BuildToolchain</code> and <code>-CloneSilverlight360</code> say what it may fetch or build. It writes <code>config.mk</code> (<code>XSDK</code> and <code>TOOLCHAIN</code> as WSL sees them, for the Makefile), <code>config.props</code> (for the sample's project) and <code>config.json</code> (for <code>tools\Release.ps1</code>); git ignores them, and <code>-Show</code> prints them.</p>
+<p>Then, in WSL, in the repository's folder. The first build compiles both libraries, about 300 files:</p>
+<pre><code class="language-bash">make -j$(nproc)
+</code></pre>
+<p>That writes <code>https360.xex</code> (1.7 MB). It also copies in <code>cacert.pem</code>, Mozilla's roots as mbedtls-xenon has them, and <code>test-ca2.crt</code>, Mbed TLS's test CA, for the sample. After changing a port, run <code>cmake --build build/deps</code> and then <code>make</code>; <code>make clean</code> starts over. The Makefile's <code>XSDK</code>, <code>TOOLCHAIN</code>, <code>ELF2XEX</code>, <code>MBEDTLS_XENON</code> and <code>CURL_XENON</code> can be given on its command line to build with something else.</p>
+<p>To move a port to a newer commit: check it out in <code>deps/&lt;port&gt;</code>, build and test, and commit the submodule.</p>
+<h2 id="silverlight360httpsdll">Silverlight360.Https.dll<a class="headerlink" href="#silverlight360httpsdll" title="Permanent link">&para;</a></h2>
+<p>The C# side builds as a Silverlight360 class library, in PowerShell:</p>
+<pre><code class="language-powershell">..\XboxSilverlightSdk\tools\Build-XboxApp.ps1 -Project .\csharp\Silverlight360.Https.csproj
+</code></pre>
+<p>That writes <code>csharp\bin\Release\Silverlight360.Https.dll</code> and <code>Silverlight360.Https.xml</code>, its documentation for IntelliSense, with <code>Silverlight360.Common.dll</code>, which it references, beside them.</p>
+<h2 id="the-sample">The sample<a class="headerlink" href="#the-sample" title="Permanent link">&para;</a></h2>
+<p><code>sample/</code> is a Silverlight360 app that runs 31 checks against a local server and public hosts. In PowerShell, with Silverlight360 where <code>.\tools\Configure.ps1 -Show</code> says (here beside this repository, as <code>XboxSilverlightSdk</code>):</p>
+<pre><code class="language-powershell">..\XboxSilverlightSdk\tools\Build-XboxApp.ps1 -Project .\sample\HttpsSample.csproj
+</code></pre>
+<p>See <a href="../testing/">Testing</a> for running it.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../api/" class="btn btn-neutral float-left" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../testing/" class="btn btn-neutral float-right" title="Testing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Silverlight360.Https is licensed under the PolyForm Noncommercial License 1.0.0 with an additional condition; libcurl, Mbed TLS and Mozilla's root certificates keep their own licenses. Xbox, Xbox 360 and Silverlight are trademarks of Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Digiex/Silverlight360.Https" class="fa fa-code-fork" style="color: #fcfcfc"> Digiex/Silverlight360.Https</a>
+        </span>
+    
+    
+      <span><a href="../api/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../testing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
