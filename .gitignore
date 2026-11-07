@@ -7,3 +7,6 @@ __pycache__/
 cacert.pem
 test-ca2.crt
 site/
+config.json
+config.mk
+config.props

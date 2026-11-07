@@ -1,0 +1,8 @@
+[submodule "deps/curl-xenon"]
+	path = deps/curl-xenon
+	url = https://github.com/xenosworks/curl-xenon.git
+	branch = xenon
+[submodule "deps/mbedtls-xenon"]
+	path = deps/mbedtls-xenon
+	url = https://github.com/xenosworks/mbedtls-xenon.git
+	branch = xenon

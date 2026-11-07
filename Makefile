@@ -1,11 +1,13 @@
 # Builds https360.xex, libcurl on Mbed TLS in an Xbox 360 DLL, with xsdk's toolchain. In WSL: make
-# XSDK is an xsdk checkout with elf2xex --dll and a built libxsdk.a; MBEDTLS_XENON and CURL_XENON the two ports'
-# checkouts, beside Silverlight360's folder unless given.
+# XSDK is an xsdk checkout with elf2xex --dll and a built libxsdk.a, the dll-modules build XboxNGen uses, and
+# TOOLCHAIN its compiler's prefix: tools/Configure.ps1 finds or sets them up and writes them to config.mk.
+# MBEDTLS_XENON and CURL_XENON are the two ports, the submodules in deps/ unless given.
+-include config.mk
 XSDK ?= $(HOME)/xsdk
 TOOLCHAIN ?= $(HOME)/xsdk-gcc/bin/powerpc-xsdk-elf-
 ELF2XEX ?= $(XSDK)/tools/elf2xex.py
-MBEDTLS_XENON ?= $(abspath ../../mbedtls-xenon)
-CURL_XENON ?= $(abspath ../../curl-xenon)
+MBEDTLS_XENON ?= $(abspath deps/mbedtls-xenon)
+CURL_XENON ?= $(abspath deps/curl-xenon)
 CC := $(TOOLCHAIN)gcc
 BUILD := build
 DEPS := $(BUILD)/deps
@@ -42,6 +44,7 @@ $(BUILD)/%.o: src/%.c | $(BUILD)
 
 $(DEPS)/build.ninja: deps/CMakeLists.txt config/mbedtls.h | $(BUILD)
 	cmake -S deps -B $(DEPS) -GNinja -DCMAKE_TOOLCHAIN_FILE=$(XSDK)/cmake/xsdk.cmake -DCMAKE_BUILD_TYPE=Release \
+		-DXSDK_TOOLCHAIN=$(patsubst %/bin/powerpc-xsdk-elf-,%,$(TOOLCHAIN)) \
 		-DMBEDTLS_XENON_DIR=$(MBEDTLS_XENON) -DCURL_XENON_DIR=$(CURL_XENON)
 
 # Ninja rebuilds what changed in the ports; run it again by hand after changing them.

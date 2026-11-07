@@ -1,4 +1,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Silverlight360's folder, as tools\Configure.ps1 found it. -->
+  <Import Project="..\config.props" Condition="Exists('..\config.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +12,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <!-- Silverlight360, beside this repository's folder. -->
+    <!-- Silverlight360, beside this repository's folder, unless config.props says where. -->
     <XboxSilverlightSdk Condition=" '$(XboxSilverlightSdk)' == '' ">..\..\XboxSilverlightSdk</XboxSilverlightSdk>
   </PropertyGroup>
   <ItemGroup>
