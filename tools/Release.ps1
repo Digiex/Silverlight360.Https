@@ -153,7 +153,8 @@ $range = if ($previous) { "$previous..$commit" } else { $commit }
 $notes = @(if ($previous) { "## Changes since $previous" } else { '## Changes' }) + ''
 $notes += Invoke-Git log $range --no-merges --format='- %s (%h)'
 $notes += '', ("From $($commit.Substring(0, 7)). The zip has https360.xex and cacert.pem, to go beside an app's " +
-    'default.xex, HttpsClient.cs and the licenses that go with them: see BUILD.txt in it.')
+    'default.xex, Https360.dll with its XML documentation, the C# source, and the licenses that go with them: see ' +
+    'BUILD.txt in it.')
 $notesFile = Join-Path $out 'notes.md'
 Write-Utf8 $notesFile $notes
 
