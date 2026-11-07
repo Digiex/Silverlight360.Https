@@ -26,11 +26,12 @@ LIBS := -Wl,--start-group $(DEP_LIBS) $(XSDK)/build/libxsdk.a -lc -lm -lgcc -Wl,
 # tests/https_server.py's certificate is under, for the sample.
 all: https360.xex cacert.pem test-ca2.crt
 
+# As LF whatever the checkout's line endings: a Windows checkout of the submodule has CRLF.
 cacert.pem: $(MBEDTLS_XENON)/programs/xsdk/cacert.pem
-	cp $< $@
+	tr -d '\r' < $< > $@
 
 test-ca2.crt: $(MBEDTLS_XENON)/framework/data_files/test-ca2.crt
-	cp $< $@
+	tr -d '\r' < $< > $@
 
 https360.xex: $(BUILD)/https360.elf
 	@grep -q -e '--dll' $(ELF2XEX) || { echo "$(ELF2XEX) has no --dll: use xsdk's dll-modules build" \
