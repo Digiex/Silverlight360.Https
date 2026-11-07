@@ -18,7 +18,7 @@ using (var client = new HttpsClient())   // checks servers against game:\cacert.
 The console's own `HttpWebRequest` knows only old certificate authorities and can't reach many sites today; Https360 brings Mozilla's current roots and TLS 1.3. It runs on a console, inside [Silverdash360](https://github.com/Digiex/Silverdash360), and in xenia-edge.
 
 - **Using it:** a [release](https://github.com/Digiex/Https360/releases) has `https360.xex`, `cacert.pem`, `HttpsClient.cs` and the licenses that go with them. See [Adding it to an app](https://digiex.github.io/Https360/using/) and the [API](https://digiex.github.io/Https360/api/).
-- **Building it:** in WSL, with xsdk and the two ports. See [Building](https://digiex.github.io/Https360/building/).
+- **Building it:** clone with `--recursive`, run `.\tools\Configure.ps1`, which sets up xsdk and its toolchain, then `make` in WSL. See [Building](https://digiex.github.io/Https360/building/).
 - **Testing it:** the sample app's 31 checks, in xenia-edge or on a console. See [Testing](https://digiex.github.io/Https360/testing/).
 
 ## License

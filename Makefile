@@ -33,6 +33,8 @@ test-ca2.crt: $(MBEDTLS_XENON)/framework/data_files/test-ca2.crt
 	cp $< $@
 
 https360.xex: $(BUILD)/https360.elf
+	@grep -q -e '--dll' $(ELF2XEX) || { echo "$(ELF2XEX) has no --dll: use xsdk's dll-modules build" \
+		"(https://github.com/jessenic/xsdk), which tools/Configure.ps1 finds or clones."; exit 1; }
 	python3 $(ELF2XEX) --dll --base $(BASE) $< $@
 
 $(BUILD)/https360.elf: $(OBJECTS) $(DEP_LIBS) https360.ld
