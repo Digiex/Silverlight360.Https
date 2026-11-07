@@ -41,3 +41,10 @@ What ran on a console, 2026-11-07, inside Silverdash360 (retail kernel 2.0.17559
 - a 404 from GitHub Pages, as a response;
 - GitHub's release download, following its redirect to GitHub's file storage, 1.2 MB checked against its SHA-256;
 - the heap peaked at 1.7 MB.
+
+Again the same day, the DLL built against xsdk's `dll-modules` `libxsdk.a` (`tools\Configure.ps1`'s xsdk, the one XboxNGen uses), with the drop-in:
+
+- Silverdash360 loaded it at its start and fetched its art with it;
+- before `HttpsRequestCreator.Register()`, the platform's `HttpWebRequest` failed for example.com and github.com; after it, `WebRequest.Create` gave `HttpsWebRequest`s, which got 200 from example.com, github.com (524 KB) and api.github.com;
+- `WebClient.DownloadStringAsync` got example.com and x360db's `info.json`, the content type in `ResponseHeaders`, and a 404 came as `e.Error`, a `WebException` with the response, its status 404;
+- `WebClient.UploadStringAsync` POSTed its body, with its `Content-Type`, and `Accept` set on the request arrived, with the default `User-Agent`.

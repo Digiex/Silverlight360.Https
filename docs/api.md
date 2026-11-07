@@ -65,3 +65,27 @@ No response came. `Code` is curl's `CURLcode`; the message is curl's.
 | `Cancelled` | 42 | `Cancel()` |
 | `TooManyRedirects` | 47 | More than 10 redirects |
 | `BadCertificate` | 60 | The server's certificate didn't check out |
+
+## The drop-in: HttpsWebRequest
+
+`csharp/HttpsWebRequest.cs`, namespace `Https360`. It makes the platform's own `WebRequest.Create`, `HttpWebRequest` and `WebClient` go through Https360, so existing code needs no change:
+
+```csharp
+HttpsRequestCreator.Register();         // https://; Register(true) takes http:// too
+```
+
+| | |
+|---|---|
+| `HttpsRequestCreator.Register()`, `Register(bool http)` | `WebRequest.RegisterPrefix` for `https://`, and `http://` with `true`; false if a prefix couldn't be registered. Once, at the app's start: it holds until the app ends |
+| `HttpsWebRequest : HttpWebRequest` | `Method`, `Headers`, `ContentType`, `Accept`, `CookieContainer`, `BeginGetRequestStream`/`EndGetRequestStream`, `BeginGetResponse`/`EndGetResponse` and `Abort`, as the platform's; and `MaxResponseBytes` and `TimeoutSeconds` of its own |
+| `HttpsWebRequest.UserAgent` | The `User-Agent` to send, where the request is typed `HttpsWebRequest`. The platform's `HttpWebRequest.UserAgent` can't be used on any class but its own: it throws `NotImplementedException` (its `GetUserAgent` and `SetUserAgent` are internal to `System.Net`), and `Headers` won't take a `User-Agent` |
+| `HttpsWebRequest.DefaultUserAgent` | Sent when a request gives none: `"Https360"` unless set. Some servers, GitHub's API among them, turn away a request without one |
+| `HttpsWebResponse : HttpWebResponse` | `StatusCode`, `StatusDescription`, `Headers` (a `WebHeaderCollection`), `ContentType`, `ContentLength`, `ResponseUri` (after redirects), `Cookies`, `GetResponseStream()`, and `TlsVersion` |
+
+As the platform's client stack does:
+
+- callbacks come on a thread pool thread, and `WebClient` takes its events to the thread that started it;
+- a status of 400 or more throws a `WebException` from `EndGetResponse` with the response in it, its `Status` `UnknownError` (this runtime's `WebExceptionStatus` has no `ProtocolError`), so `WebClient`'s `e.Error` has it;
+- no response is `ConnectFailure`, `Abort()` is `RequestCanceled`, and a body over `MaxResponseBytes` is `MessageLengthLimitExceeded`.
+
+Requests share a pool of four clients, so a host's connection stays open from one request to the next. The response is read whole before `EndGetResponse` returns, whatever `AllowReadStreamBuffering` says. Credentials (`ICredentials`) aren't sent.

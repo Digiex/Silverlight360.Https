@@ -31,6 +31,7 @@
     <Compile Include="App.xaml.cs"><DependentUpon>App.xaml</DependentUpon></Compile>
     <Compile Include="MainPage.xaml.cs"><DependentUpon>MainPage.xaml</DependentUpon></Compile>
     <Compile Include="..\csharp\HttpsClient.cs"><Link>HttpsClient.cs</Link></Compile>
+    <Compile Include="..\csharp\HttpsWebRequest.cs"><Link>HttpsWebRequest.cs</Link></Compile>
     <Compile Include="$(XboxSilverlightSdk)\samples\Common\DebugLog.cs"><Link>Common\DebugLog.cs</Link></Compile>
     <Compile Include="$(XboxSilverlightSdk)\samples\Common\NativeBuffer.cs"><Link>Common\NativeBuffer.cs</Link></Compile>
   </ItemGroup>

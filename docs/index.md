@@ -13,7 +13,7 @@ using (var client = new HttpsClient())   // checks servers against game:\cacert.
 }
 ```
 
-The platform's own `HttpWebRequest` does HTTPS too, but only with the certificate authorities the console knows, which are years old: it can't reach `example.com` or `github.com`, for instance. Https360 brings Mozilla's current roots and TLS 1.3, and its requests run on any thread, not the UI's.
+The platform's own `HttpWebRequest` does HTTPS too, but only with the certificate authorities the console knows, which are years old: it can't reach `example.com` or `github.com`, for instance. Https360 brings Mozilla's current roots and TLS 1.3, and its requests run on any thread, not the UI's. Its drop-in, `HttpsRequestCreator.Register()`, sends an app's existing `WebClient` and `HttpWebRequest` calls through it (see [Adding it to an app](using.md#the-drop-in)).
 
 ## Getting it
 
