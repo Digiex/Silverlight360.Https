@@ -11,7 +11,8 @@
 | `deps/curl-xenon`, `deps/mbedtls-xenon` | The two ports, as submodules |
 | `deps/CMakeLists.txt` | Builds them as static libraries |
 | `https360.ld`, `Makefile` | The DLL's layout, at base `0x8D000000`, and its build |
-| `csharp/HttpsClient.cs` | The C# side: `HttpsClient`, `HttpsResponse`, `HttpsException` |
+| `csharp/HttpsClient.cs`, `csharp/HttpsWebRequest.cs` | The C# side: `HttpsClient`, `HttpsResponse`, `HttpsException`, and the drop-in |
+| `csharp/Https360.csproj` | Builds them as `Https360.dll`, a Silverlight360 class library, with its XML documentation |
 | `sample/` | A Silverlight360 app that runs 31 checks against a local server and public hosts |
 | `tests/` | The local HTTPS server, and a check of what the sample downloaded |
 | `tools/Configure.ps1`, `tools/Config.ps1` | Sets up the build ([Building](building.md)), and reads what it saved |
@@ -33,8 +34,9 @@ As Silverdash360's and XboxNGen's release scripts do:
 1. The release is made from the commit as it is: nothing may be uncommitted, and the commit must be on GitHub already. Nothing is pushed.
 2. The version is `-Version` if given, else the last release's (the highest `v<version>` tag) with its patch, or `-Bump`'s part, raised. It's tagged `v<version>` on the commit, by `gh`.
 3. The DLL is built from scratch in WSL (`make clean`, then `make`), with what `tools\Configure.ps1` set up, and the submodules at the commits this one records.
-4. `Https360-<version>.zip`, in `build\release`, has in an `Https360` folder `https360.xex`, `cacert.pem`, `csharp\HttpsClient.cs`, `README.md`, `LICENSE.md`, `THIRD-PARTY-NOTICES.md`, `licenses\` and `BUILD.txt`, which records the commits of Https360, the two ports and xsdk it was built from, and the toolchain.
-5. The release's notes are the commits since the last release, and the zip is its file.
+4. `Https360.dll` and `Https360.xml` are built from `csharp\Https360.csproj` by Silverlight360's `tools\Build-XboxApp.ps1`, so a release needs Silverlight360 configured.
+5. `Https360-<version>.zip`, in `build\release`, has in an `Https360` folder `https360.xex`, `cacert.pem`, `Https360.dll`, `Https360.xml`, `csharp\`'s source, `README.md`, `LICENSE.md`, `THIRD-PARTY-NOTICES.md`, `licenses\` and `BUILD.txt`, which records the commits of Https360, the two ports and xsdk it was built from, and the toolchain.
+6. The release's notes are the commits since the last release, and the zip is its file.
 
 It needs the GitHub CLI (`gh`), signed in, unless `-DryRun`. Test a build before releasing it ([Testing](testing.md)): the script builds it, it doesn't run it.
 

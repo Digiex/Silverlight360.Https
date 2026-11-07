@@ -11,9 +11,11 @@ As Silverdash360's and XboxNGen's tools\Release.ps1 do:
 3. The DLL is built from scratch in WSL (make clean, then make), with what tools\Configure.ps1 set up: xsdk's
    dll-modules build and its toolchain (config.mk), and the submodules in deps\, which must be at the commits this
    one records.
-4. build\release\Https360-<version>.zip has, in an Https360 folder, https360.xex, cacert.pem, csharp\HttpsClient.cs,
-   README.md, LICENSE.md, THIRD-PARTY-NOTICES.md, licenses\ and BUILD.txt: what was built from what.
-5. The release's notes are the commits since the last release, and the zip is its file.
+4. Https360.dll and Https360.xml are built from csharp\Https360.csproj by Silverlight360's tools\Build-XboxApp.ps1.
+5. build\release\Https360-<version>.zip has, in an Https360 folder, https360.xex, cacert.pem, Https360.dll and
+   Https360.xml, csharp\'s source, README.md, LICENSE.md, THIRD-PARTY-NOTICES.md, licenses\ and BUILD.txt: what
+   was built from what.
+6. The release's notes are the commits since the last release, and the zip is its file.
 The build isn't run: test it first (docs\testing.md). Needs tools\Configure.ps1 run, and the GitHub CLI (gh),
 signed in, unless -DryRun.
 
@@ -55,8 +57,12 @@ if (Invoke-Git submodule status --recursive | Where-Object { $_ -match '^[-+U]' 
 }
 $xsdk = & (Join-Path $PSScriptRoot 'Config.ps1') Xsdk
 $toolchain = & (Join-Path $PSScriptRoot 'Config.ps1') Toolchain
+$sdk = & (Join-Path $PSScriptRoot 'Config.ps1') Silverlight360
 if (-not $xsdk -or -not $toolchain -or -not (Test-Path -LiteralPath (Join-Path $root 'config.mk'))) {
     throw 'xsdk or its toolchain isn''t configured: run .\tools\Configure.ps1.'
+}
+if (-not $sdk) {
+    throw 'Silverlight360 isn''t configured, which builds Https360.dll: run .\tools\Configure.ps1.'
 }
 Invoke-Git fetch --quiet --tags origin
 $commit = Invoke-Git rev-parse HEAD
@@ -92,6 +98,12 @@ foreach ($built in 'https360.xex', 'cacert.pem') {
     if (-not (Test-Path -LiteralPath (Join-Path $root $built))) { throw "The build made no $built." }
 }
 $toolchainName = wsl -e bash -lc "${toolchain}gcc --version | head -n 1"
+# The C# side as Https360.dll, with its XML documentation, by Silverlight360's build.
+& (Join-Path $sdk 'tools\Build-XboxApp.ps1') -Project (Join-Path $root 'csharp\Https360.csproj')
+$library = Join-Path $root 'csharp\bin\Release'
+foreach ($built in 'Https360.dll', 'Https360.xml') {
+    if (-not (Test-Path -LiteralPath (Join-Path $library $built))) { throw "The C# build made no $built." }
+}
 $ports = foreach ($port in 'curl-xenon', 'mbedtls-xenon') { "$port $(Get-Commit (Join-Path $root "deps\$port"))" }
 
 # 4. The zip.
@@ -99,11 +111,15 @@ $name = "Https360 $Version"
 $out = Join-Path $root 'build\release'
 $staging = Join-Path $out 'Https360'
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Recurse -Force }
-$files = @(Invoke-Git ls-files README.md LICENSE.md THIRD-PARTY-NOTICES.md licenses csharp) + 'https360.xex', 'cacert.pem'
+$files = @(Invoke-Git ls-files README.md LICENSE.md THIRD-PARTY-NOTICES.md licenses csharp | Where-Object { $_ -notlike '*.csproj' }) +
+    'https360.xex', 'cacert.pem'
 foreach ($f in $files) {
     $to = Join-Path $staging $f
     $null = New-Item -ItemType Directory (Split-Path $to -Parent) -Force
     Copy-Item -LiteralPath (Join-Path $root $f) -Destination $to
+}
+foreach ($f in 'Https360.dll', 'Https360.xml') {
+    Copy-Item -LiteralPath (Join-Path $library $f) -Destination $staging
 }
 $build = @"
 $name
@@ -113,11 +129,13 @@ Built from commit $($commit.Substring(0, 12)), with:
 - $($ports -join "`n- ")
 - xsdk $(Get-Commit $xsdk), with its elf2xex.py and libxsdk.a
 - $toolchainName
+- Silverlight360 $(Get-Commit $sdk), for Https360.dll
 
 https360.xex is the DLL, at base 0x8D000000, and cacert.pem Mozilla's root certificates, which it checks
-servers against: both go beside an app's default.xex. csharp\HttpsClient.cs is the C# side, which needs
-Silverlight360's samples\Common\NativeBuffer.cs, and csharp\HttpsWebRequest.cs the drop-in for WebClient and
-HttpWebRequest. See https://digiex.github.io/Https360/using/.
+servers against: both go beside an app's default.xex. Https360.dll is the C# side, HttpsClient and the
+drop-in for WebClient and HttpWebRequest, with Https360.xml, its documentation for IntelliSense; it needs
+Silverlight360.Common, which an app built with Silverlight360 has. csharp\ has its source, to compile into
+an app instead. See https://digiex.github.io/Https360/using/.
 
 The licenses in licenses\ and THIRD-PARTY-NOTICES.md go with https360.xex and cacert.pem.
 "@

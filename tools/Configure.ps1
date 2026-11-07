@@ -15,10 +15,10 @@ first, after cloning.
    ~/xsdk-gcc/bin/powerpc-xsdk-elf-. With none, it offers to build it with xsdk's tools/toolchain/build.sh into
    ~/xsdk-gcc (-BuildToolchain without asking): about 10 minutes, and a 136 MB download of GCC's, binutils' and
    newlib's sources.
-5. Silverlight360, for the sample only: -Silverlight360, its environment variable, the last configuration, or a
+5. Silverlight360, for Https360.dll and the sample: -Silverlight360, its environment variable, the last configuration, or a
    checkout beside this repository (XboxSilverlightSdk or Silverlight360). With none, it offers to clone
-   https://github.com/Digiex/Silverlight360 beside it (-CloneSilverlight360 without asking). Building the DLL
-   doesn't need it.
+   https://github.com/Digiex/Silverlight360 beside it (-CloneSilverlight360 without asking). Building
+   https360.xex doesn't need it; tools\Release.ps1 does.
 
 It writes, at the repository's root (git ignores them):
   config.mk     XSDK and TOOLCHAIN, as WSL sees them, which the Makefile reads
@@ -146,14 +146,14 @@ if ($foundXsdk -and $toolchainPath -and -not (Test-Path -LiteralPath (Join-Path 
 }
 $xsdkReady = $foundXsdk -and (Test-Path -LiteralPath (Join-Path $foundXsdk 'build\libxsdk.a'))
 
-# 5. Silverlight360, for the sample.
+# 5. Silverlight360, for Https360.dll and the sample.
 $sdkTest = { param($p) $p -and (Test-Path -LiteralPath (Join-Path $p 'msbuild\XboxSilverlight.targets')) }
 $sdkCandidates = @($Silverlight360, $env:Silverlight360Dir, $env:SILVERLIGHT360, $(if ($previous) { $previous.Silverlight360 }),
     (Join-Path $parent 'XboxSilverlightSdk'), (Join-Path $parent 'Silverlight360'))
 $foundSdk = $sdkCandidates | Where-Object { & $sdkTest $_ } | Select-Object -First 1
 $sdkTo = Join-Path $parent 'Silverlight360'
 if (-not $foundSdk -and -not (Test-Path -LiteralPath $sdkTo) -and
-        (Confirm "Silverlight360 not found, which the sample needs. Clone $silverlight360Repository to ${sdkTo}?" $CloneSilverlight360)) {
+        (Confirm "Silverlight360 not found, which Https360.dll and the sample need. Clone $silverlight360Repository to ${sdkTo}?" $CloneSilverlight360)) {
     & git.exe clone $silverlight360Repository $sdkTo
     if ($LASTEXITCODE) { throw 'git clone failed.' }
     $foundSdk = $sdkTo
@@ -170,7 +170,7 @@ Report 'xsdk' $(if ($xsdkReady) { "$($config.Xsdk), " + (& git.exe -C $config.Xs
     $(if ($config.Xsdk) { 'libxsdk.a isn''t built: it needs the toolchain' } else { "clone $xsdkRepository ($xsdkBranch), or pass -Xsdk" })
 Report 'toolchain' $(if ($toolchainPath) { ((Invoke-Wsl "${toolchainPath}gcc --version").Output | Select-Object -First 1) + ", $toolchainPath" }) `
     "run .\tools\Configure.ps1 -BuildToolchain, or pass -Toolchain"
-Report 'Silverlight360' $config.Silverlight360 "optional, for the sample: clone $silverlight360Repository beside this repository, or pass -Silverlight360" -Optional
+Report 'Silverlight360' $config.Silverlight360 "optional, for Https360.dll and the sample: clone $silverlight360Repository beside this repository, or pass -Silverlight360" -Optional
 
 $config | ConvertTo-Json | Set-Content -LiteralPath $jsonFile -Encoding utf8
 $mk = "# Written by tools\Configure.ps1.`n"

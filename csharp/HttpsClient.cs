@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using XboxSdk.Samples;
+using Silverlight360;
 
 namespace Https360
 {

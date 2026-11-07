@@ -30,10 +30,10 @@
     </Page>
     <Compile Include="App.xaml.cs"><DependentUpon>App.xaml</DependentUpon></Compile>
     <Compile Include="MainPage.xaml.cs"><DependentUpon>MainPage.xaml</DependentUpon></Compile>
-    <Compile Include="..\csharp\HttpsClient.cs"><Link>HttpsClient.cs</Link></Compile>
-    <Compile Include="..\csharp\HttpsWebRequest.cs"><Link>HttpsWebRequest.cs</Link></Compile>
-    <Compile Include="$(XboxSilverlightSdk)\samples\Common\DebugLog.cs"><Link>Common\DebugLog.cs</Link></Compile>
-    <Compile Include="$(XboxSilverlightSdk)\samples\Common\NativeBuffer.cs"><Link>Common\NativeBuffer.cs</Link></Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Https360.dll; the SDK's targets add Silverlight360.Common, for DebugLog and NativeBuffer. -->
+    <ProjectReference Include="..\csharp\Https360.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!-- Built by the Makefile in WSL; the package puts them beside default.xex. cacert.pem is Mozilla's roots, for

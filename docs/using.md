@@ -1,14 +1,19 @@
 # Adding it to an app
 
-An app needs four files:
+An app needs the C# side and two files beside `default.xex`:
 
-- `csharp/HttpsClient.cs`, compiled into the app;
-- Silverlight360's `samples/Common/NativeBuffer.cs`, which `HttpsClient` uses for memory the DLL reads and writes (or an app's own class like it, with the same members);
-- `https360.xex` and `cacert.pem`, as `Content` beside `default.xex`.
+- **`Https360.dll`**, the C# side, `HttpsClient` and the drop-in, with `Https360.xml` beside it for IntelliSense: a reference to the release's DLL, or a `ProjectReference` to `csharp/Https360.csproj`. Or compile `csharp/HttpsClient.cs` and `csharp/HttpsWebRequest.cs` into the app itself.
+- **`https360.xex`** and **`cacert.pem`**, as `Content`.
+
+The C# side uses `NativeBuffer` from Silverlight360's [common library](https://digiex.github.io/Silverlight360/common-library/), Silverlight360.Common, for the memory the DLL reads and writes. An app built with Silverlight360 references that library already, and its build puts `Silverlight360.Common.dll` in the package.
 
 In the app's project, as `sample/HttpsSample.csproj` has them:
 
 ```xml
+<ItemGroup>
+  <ProjectReference Include="..\Https360\csharp\Https360.csproj" />
+  <!-- or, from a release: <Reference Include="Https360"><HintPath>..\Https360\Https360.dll</HintPath></Reference> -->
+</ItemGroup>
 <ItemGroup>
   <Content Include="..\Https360\https360.xex"><Link>https360.xex</Link></Content>
   <Content Include="..\Https360\cacert.pem"><Link>cacert.pem</Link></Content>
@@ -19,7 +24,7 @@ Ship the release's `licenses` folder and `THIRD-PARTY-NOTICES.md` with them too:
 
 ## The drop-in
 
-To leave an app's `WebClient` and `HttpWebRequest` code as it is, add `csharp/HttpsWebRequest.cs` too and register it once, at the start:
+To leave an app's `WebClient` and `HttpWebRequest` code as it is, register the drop-in (in `Https360.dll`, or `csharp/HttpsWebRequest.cs`) once, at the start:
 
 ```csharp
 HttpsRequestCreator.Register();

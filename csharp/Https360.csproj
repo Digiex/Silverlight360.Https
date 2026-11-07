@@ -1,0 +1,36 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    Https360's C# side as a class library, Https360.dll with its XML
+    documentation: HttpsClient and the drop-in for WebClient and
+    HttpWebRequest. It uses NativeBuffer from Silverlight360.Common, which the
+    SDK's targets reference. An app references this project (or the DLL from a
+    release) and puts https360.xex and cacert.pem beside default.xex.
+  -->
+  <!-- Silverlight360's folder, as tools\Configure.ps1 found it. -->
+  <Import Project="..\config.props" Condition="Exists('..\config.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6D1E8B4A-2C75-4F93-A0B6-8E3D1F5C7A29}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Https360</RootNamespace>
+    <AssemblyName>Https360</AssemblyName>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <XboxLibrary>true</XboxLibrary>
+    <!-- Silverlight360, beside this repository's folder, unless config.props says where. -->
+    <XboxSilverlightSdk Condition=" '$(XboxSilverlightSdk)' == '' ">..\..\XboxSilverlightSdk</XboxSilverlightSdk>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HttpsClient.cs" />
+    <Compile Include="HttpsWebRequest.cs" />
+  </ItemGroup>
+  <Import Project="$(XboxSilverlightSdk)\msbuild\XboxSilverlight.targets" />
+</Project>

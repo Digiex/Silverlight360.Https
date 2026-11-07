@@ -23,8 +23,8 @@ A [release](https://github.com/Digiex/Https360/releases) has what an app needs, 
 |---|---|
 | `https360.xex` | The DLL, at base `0x8D000000` |
 | `cacert.pem` | Mozilla's root certificates, which servers are checked against |
-| `csharp/HttpsClient.cs` | The C# side: `HttpsClient`, `HttpsResponse` and `HttpsException` |
-| `csharp/HttpsWebRequest.cs` | The drop-in: `HttpsRequestCreator`, `HttpsWebRequest` and `HttpsWebResponse`, for the platform's `WebClient` and `HttpWebRequest` |
+| `Https360.dll`, `Https360.xml` | The C# side, with its documentation for IntelliSense: `HttpsClient`, and the drop-in for the platform's `WebClient` and `HttpWebRequest`. It needs Silverlight360.Common, which an app built with Silverlight360 has |
+| `csharp/` | Its source, `HttpsClient.cs` and `HttpsWebRequest.cs`, to compile into an app instead |
 | `licenses/`, `THIRD-PARTY-NOTICES.md` | curl's, Mbed TLS's and Mozilla's licenses, which go with the DLL |
 | `LICENSE.md`, `README.md`, `BUILD.txt` | Https360's license, and what the release was built from |
 

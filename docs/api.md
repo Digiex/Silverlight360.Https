@@ -1,6 +1,6 @@
 # API
 
-`csharp/HttpsClient.cs`, namespace `Https360`.
+`Https360.dll` (`csharp/HttpsClient.cs`), namespace `Https360`.
 
 ## HttpsClient
 
@@ -68,7 +68,7 @@ No response came. `Code` is curl's `CURLcode`; the message is curl's.
 
 ## The drop-in: HttpsWebRequest
 
-`csharp/HttpsWebRequest.cs`, namespace `Https360`. It makes the platform's own `WebRequest.Create`, `HttpWebRequest` and `WebClient` go through Https360, so existing code needs no change:
+`Https360.dll` (`csharp/HttpsWebRequest.cs`), namespace `Https360`. It makes the platform's own `WebRequest.Create`, `HttpWebRequest` and `WebClient` go through Https360, so existing code needs no change:
 
 ```csharp
 HttpsRequestCreator.Register();         // https://; Register(true) takes http:// too

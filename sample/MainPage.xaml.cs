@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Https360;
-using XboxSdk.Samples;
+using Silverlight360;
 
 namespace HttpsSample
 {
