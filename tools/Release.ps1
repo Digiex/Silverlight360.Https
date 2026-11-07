@@ -116,7 +116,8 @@ Built from commit $($commit.Substring(0, 12)), with:
 
 https360.xex is the DLL, at base 0x8D000000, and cacert.pem Mozilla's root certificates, which it checks
 servers against: both go beside an app's default.xex. csharp\HttpsClient.cs is the C# side, which needs
-Silverlight360's samples\Common\NativeBuffer.cs. See https://digiex.github.io/Https360/using/.
+Silverlight360's samples\Common\NativeBuffer.cs, and csharp\HttpsWebRequest.cs the drop-in for WebClient and
+HttpWebRequest. See https://digiex.github.io/Https360/using/.
 
 The licenses in licenses\ and THIRD-PARTY-NOTICES.md go with https360.xex and cacert.pem.
 "@
