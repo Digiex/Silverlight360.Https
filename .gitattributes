@@ -1,3 +1,10 @@
 * text=auto
 *.xex binary
 *.ps1 text eol=crlf
+# Built in WSL: kept as LF on Windows checkouts too.
+Makefile text eol=lf
+*.ld text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.py text eol=lf
+CMakeLists.txt text eol=lf
