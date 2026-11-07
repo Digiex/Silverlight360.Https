@@ -94,7 +94,7 @@ Write-Host ("Version $Version" + $(if ($last) { ", after $($last.Tag)" } else { 
 # 3. The DLL, from scratch.
 if (-not $Elf2xex) {
     $beside = Join-Path $parent 'xsdk\tools\elf2xex.py'
-    if (-not (Test-Path -LiteralPath $beside)) { throw "No elf2xex.py at $beside: pass -Elf2xex, xsdk's dll-modules one, as a WSL path." }
+    if (-not (Test-Path -LiteralPath $beside)) { throw "No elf2xex.py at ${beside}: pass -Elf2xex, xsdk's dll-modules one, as a WSL path." }
     $Elf2xex = ConvertTo-Wsl $beside
 }
 $makeArgs = @("ELF2XEX=$Elf2xex")
