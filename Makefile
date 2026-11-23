@@ -1,5 +1,5 @@
 # Builds https360.xex, libcurl on Mbed TLS in an Xbox 360 DLL, with xsdk's toolchain. In WSL: make
-# XSDK is an xsdk checkout with elf2xex --dll and a built libxsdk.a, the dll-modules build XboxNGen uses, and
+# XSDK is an xsdk checkout with elf2xex --title-dll and a built libxsdk.a, the dll-modules build XboxNGen uses, and
 # TOOLCHAIN its compiler's prefix: tools/Configure.ps1 finds or sets them up and writes them to config.mk.
 # MBEDTLS_XENON and CURL_XENON are the two ports, the submodules in deps/ unless given.
 -include config.mk
@@ -34,12 +34,14 @@ test-ca2.crt: $(MBEDTLS_XENON)/framework/data_files/test-ca2.crt
 	tr -d '\r' < $< > $@
 
 https360.xex: $(BUILD)/https360.elf
-	@grep -q -e '--dll' $(ELF2XEX) || { echo "$(ELF2XEX) has no --dll: use xsdk's dll-modules build" \
+	@grep -q -e '--title-dll' $(ELF2XEX) || { echo "$(ELF2XEX) has no --title-dll: use xsdk's dll-modules build" \
 		"(https://github.com/jessenic/xsdk), which tools/Configure.ps1 finds or clones."; exit 1; }
-	python3 $(ELF2XEX) --dll --base $(BASE) $< $@
+	python3 $(ELF2XEX) --title-dll $< $@
 
+# BASE reaches https360.ld, and through the ELF elf2xex, as the symbol xsdk_dll_base.
 $(BUILD)/https360.elf: $(OBJECTS) $(DEP_LIBS) https360.ld
-	$(CC) -static -nostdlib -T https360.ld -Wl,-Map,$(BUILD)/https360.map -o $@ $(OBJECTS) $(LIBS)
+	$(CC) -static -nostdlib -T https360.ld -Wl,--defsym=xsdk_dll_base=0x$(BASE) -Wl,-Map,$(BUILD)/https360.map -o $@ \
+		$(OBJECTS) $(LIBS)
 
 $(BUILD)/https.o: $(DEPS)/build.ninja
 $(BUILD)/%.o: src/%.c | $(BUILD)

@@ -13,7 +13,7 @@ cd Silverlight360.Https
 | | | |
 |---|---|---|
 | **curl-xenon**, **mbedtls-xenon** | Submodules in `deps/`, at the commits Silverlight360.Https is built from (Mbed TLS's `framework` with them) | Checked out if a clone wasn't `--recursive` |
-| **xsdk** | [jessenic/xsdk](https://github.com/jessenic/xsdk), branch `dll-modules`, the build XboxNGen uses: its `elf2xex.py` has `--dll`, and its `build/libxsdk.a` is what the DLL links | Found from `-Xsdk`, `XSDK`, XboxNGen's configuration beside this repository, or a checkout two folders up (`C:\Proj\xsdk`) or beside it; otherwise cloned two folders up, if you say so. `libxsdk.a` is built if it isn't |
+| **xsdk** | [jessenic/xsdk](https://github.com/jessenic/xsdk), branch `dll-modules`, the build XboxNGen uses: its `elf2xex.py` has `--title-dll`, and its `build/libxsdk.a` is what the DLL links | Found from `-Xsdk`, `XSDK`, XboxNGen's configuration beside this repository, or a checkout two folders up (`C:\Proj\xsdk`) or beside it; otherwise cloned two folders up, if you say so. `libxsdk.a` is built if it isn't |
 | **xsdk's toolchain** | GCC 15.3, binutils and newlib for `powerpc-xsdk-elf`, in WSL | Found in `~/xsdk-gcc` or at `-Toolchain`; otherwise built there with xsdk's `tools/toolchain/build.sh`, if you say so: about 10 minutes, and a 136 MB download of their sources |
 | **Silverlight360** | The SDK, for `Silverlight360.Https.dll` and the sample | Found from `-Silverlight360`, its environment variable, or a checkout beside this repository; otherwise cloned there, if you say so |
 

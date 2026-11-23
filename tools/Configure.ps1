@@ -8,7 +8,7 @@ first, after cloning.
    (git submodule update --init --recursive), Mbed TLS's framework with them.
 2. WSL, and make, cmake, ninja, python3 and git in it.
 3. xsdk: the dll-modules build XboxNGen uses (https://github.com/jessenic/xsdk, branch dll-modules), as its
-   elf2xex.py has --dll. Found from -Xsdk, the XSDK environment variable, the last configuration, XboxNGen's
+   elf2xex.py has --title-dll. Found from -Xsdk, the XSDK environment variable, the last configuration, XboxNGen's
    configuration beside this repository, or an xsdk checkout two folders up (C:\Proj\xsdk) or beside it. With none,
    it offers to clone it two folders up (-CloneXsdk without asking). Its build\libxsdk.a is built if it isn't.
 4. The toolchain, xsdk's GCC for powerpc-xsdk-elf, in WSL: -Toolchain's prefix, else the last one, else
@@ -111,11 +111,11 @@ Report 'build tools' $(if (-not $missingTools) { 'make, cmake, ninja, python3, g
 # 3. xsdk.
 $test = { param($p) $p -and (Test-Path -LiteralPath (Join-Path $p 'cmake\xsdk.cmake')) -and
     (Test-Path -LiteralPath (Join-Path $p 'tools\elf2xex.py')) -and
-    (Select-String -LiteralPath (Join-Path $p 'tools\elf2xex.py') -Pattern '--dll' -SimpleMatch -Quiet) }
+    (Select-String -LiteralPath (Join-Path $p 'tools\elf2xex.py') -Pattern '--title-dll' -SimpleMatch -Quiet) }
 $ngenConfig = Join-Path $parent 'XboxNGen\config.json'
 $ngenXsdk = if (Test-Path -LiteralPath $ngenConfig) { (Get-Content -LiteralPath $ngenConfig -Raw | ConvertFrom-Json).Xsdk } else { '' }
 $candidates = @($Xsdk, $env:XSDK, $(if ($previous) { $previous.Xsdk }), $ngenXsdk, (Join-Path $grandparent 'xsdk'), (Join-Path $parent 'xsdk'))
-if ($Xsdk -and -not (& $test $Xsdk)) { throw "$Xsdk isn't xsdk's dll-modules build: it needs cmake\xsdk.cmake and tools\elf2xex.py with --dll." }
+if ($Xsdk -and -not (& $test $Xsdk)) { throw "$Xsdk isn't xsdk's dll-modules build: it needs cmake\xsdk.cmake and tools\elf2xex.py with --title-dll." }
 $foundXsdk = $candidates | Where-Object { & $test $_ } | Select-Object -First 1
 $cloneTo = Join-Path $grandparent 'xsdk'
 if (-not $foundXsdk -and -not (Test-Path -LiteralPath $cloneTo) -and

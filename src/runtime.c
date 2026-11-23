@@ -30,6 +30,9 @@ extern void (*__init_array_end[])(void);
 void *__dso_handle = &__dso_handle;
 
 void *sbrk(ptrdiff_t increment);
+// newlib's malloc maps blocks of 256 KB and more apart through these (xsdk tools/toolchain/newlib-xsdk.patch).
+void *__xsdk_heap_map(size_t size_bytes);
+int __xsdk_heap_unmap(void *base);
 
 static uintptr_t heap_base;
 static uintptr_t heap_end;
@@ -86,6 +89,21 @@ void *sbrk(ptrdiff_t increment)
 	void *old_break = (void *)heap_break;
 	heap_break = new_break;
 	return old_break;
+}
+
+// xsdk's map a large block outside the heap (xsdk src/sbrk.c), which here would be outside https360_init's bound and
+// its count. With none mapped, malloc takes the block from sbrk, as it took every block before, and never unmaps.
+// Defined here with sbrk, so xsdk's sbrk.o, which has all three, isn't linked.
+void *__xsdk_heap_map(size_t size_bytes)
+{
+	(void)size_bytes;
+	return NULL;
+}
+
+int __xsdk_heap_unmap(void *base)
+{
+	(void)base;
+	return -1;
 }
 
 int32_t https360_runtime_start(uint32_t heap_bytes)
